@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dartdroid.bpbd">
    <application
-        android:label="Herpes"
+        android:label="BPBD"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

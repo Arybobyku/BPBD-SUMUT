@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
         navigatorKey: Get.key,
         debugShowCheckedModeBanner: false,
         color: ColorPalette.generalBackgroundColor,
-        title: 'Herpes',
+        title: 'BPBD',
         initialRoute: Routes.navigator,
         getPages: Routes.newRoutes,
         theme: ThemeData(
