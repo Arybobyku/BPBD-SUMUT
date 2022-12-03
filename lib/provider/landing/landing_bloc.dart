@@ -14,6 +14,7 @@ class LandingBloc extends Bloc<LandingEvent, LandingState> {
     on<LandingEvent>((event, emit) {
       event.map(
         onChange: (e) async {
+          print(e.index.toString());
           emit(LandingState(index: e.index));
         },
       );

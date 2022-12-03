@@ -6,6 +6,7 @@ import 'package:bpbd/provider/home/home_bloc.dart';
 import 'package:bpbd/provider/landing/landing_bloc.dart';
 import 'package:bpbd/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
       child: GetMaterialApp(
         navigatorKey: Get.key,
         debugShowCheckedModeBanner: false,
-        color: ColorPalette.generalBackgroundColor,
+        color: ColorPalette.generalPrimaryColor,
         title: 'BPBD',
         initialRoute: Routes.navigator,
         getPages: Routes.newRoutes,
@@ -55,6 +56,13 @@ class MyApp extends StatelessWidget {
           primaryColor: ColorPalette.generalPrimaryColor,
           backgroundColor: ColorPalette.generalBackgroundColor,
           fontFamily: 'Poppins',
+          appBarTheme: const AppBarTheme(
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: ColorPalette.generalPrimaryColor,
+              statusBarIconBrightness: Brightness.light,
+              statusBarBrightness: Brightness.light
+            )
+          )
         ),
       ),
     );

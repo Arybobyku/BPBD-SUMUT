@@ -78,7 +78,9 @@ class _LoginPageState extends State<LoginPage> {
                               const SizedBox(height: 20),
                               ButtonRounded(
                                 text: "Login",
-                                onPressed: () {},
+                                onPressed: () {
+                                  Get.toNamed(Routes.landing);
+                                },
                                 icon: const Icon(
                                   Icons.login,
                                   color: Colors.white,
