@@ -1,6 +1,7 @@
 import 'package:bpbd/helper/color_pallete.dart';
 import 'package:bpbd/provider/home/home_bloc.dart';
 import 'package:bpbd/ui/core/custom_profile_card/custom_profile_card.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,7 +26,8 @@ class HomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  height: 50,
+                  height: 60,
+                  padding: EdgeInsets.only(bottom: 10),
                   width: double.infinity,
                   decoration: const BoxDecoration(
                     color: ColorPalette.generalPrimaryColor,
@@ -36,13 +38,20 @@ class HomePage extends StatelessWidget {
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: const [
-                     Text(
+                      Icon(
+                        Icons.location_pin,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      SizedBox(width: 4),
+                      Text(
                         "Kota Medan",
                         style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       )
                     ],
                   ),
@@ -51,6 +60,26 @@ class HomePage extends StatelessWidget {
                   name: "Ary Boby Siregar",
                   nip: "7294719471941",
                 ),
+                CarouselSlider(
+                  options: CarouselOptions(height: 160.0),
+                  items: [1, 2].map((i) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                            decoration: const BoxDecoration(
+                                color: ColorPalette.generalPrimaryColor,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20))),
+                            child: const Text(
+                              '',
+                              style: TextStyle(fontSize: 16.0),
+                            ));
+                      },
+                    );
+                  }).toList(),
+                )
               ],
             ),
           );

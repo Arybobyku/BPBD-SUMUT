@@ -28,11 +28,9 @@ class _LandingPageState extends State<LandingPage> {
     return BlocBuilder<LandingBloc, LandingState>(
       builder: (context, state) {
         return Scaffold(
-          body: SafeArea(
-            child: Stack(
-              fit: StackFit.expand,
-              children: [_pagepOption[state.index]],
-            ),
+          body: Stack(
+            fit: StackFit.expand,
+            children: [_pagepOption[state.index]],
           ),
           bottomNavigationBar: Container(
             decoration: const BoxDecoration(

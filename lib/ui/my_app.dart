@@ -18,6 +18,7 @@ import 'package:provider/provider.dart';
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return MultiProvider(
       providers: [
         Provider(
@@ -56,9 +57,11 @@ class MyApp extends StatelessWidget {
           primaryColor: ColorPalette.generalPrimaryColor,
           backgroundColor: ColorPalette.generalBackgroundColor,
           fontFamily: 'Poppins',
+          splashColor: ColorPalette.generalPrimaryColor,
+          brightness: Brightness.light,
           appBarTheme: const AppBarTheme(
             systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor: ColorPalette.generalPrimaryColor,
+              statusBarColor: Color(0xFFFF6501),
               statusBarIconBrightness: Brightness.light,
               statusBarBrightness: Brightness.light
             )
