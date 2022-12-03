@@ -1,28 +1,22 @@
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
-import 'package:fast_immutable_collections/fast_immutable_collections.dart';
-import 'package:fpdart/src/list_extension.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:bpbd/data/constants/constants.dart';
-import 'package:bpbd/data/model/case/case_detail/case_detail_model.dart';
 import 'package:bpbd/data/model/case/case_model.dart';
-import 'package:bpbd/data/model/case/case_solution/case_solution_model.dart';
-import 'package:bpbd/data/model/disease/disease_model.dart';
 import 'package:bpbd/data/model/history/history_model.dart';
-import 'package:bpbd/data/model/solution/solution_model.dart';
 import 'package:bpbd/data/model/symptom/symptom_model.dart';
 import 'package:bpbd/locatore_storage_service.dart';
 import 'package:bpbd/setup_locator.dart';
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
+import 'package:fpdart/src/list_extension.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
-part 'cbr_and_rbr_event.dart';
-
-part 'cbr_and_rbr_state.dart';
-
 part 'cbr_and_rbr_bloc.freezed.dart';
+part 'cbr_and_rbr_event.dart';
+part 'cbr_and_rbr_state.dart';
 
 @injectable
 class CbrAndRbrBloc extends Bloc<CbrAndRbrEvent, CbrAndRbrState> {

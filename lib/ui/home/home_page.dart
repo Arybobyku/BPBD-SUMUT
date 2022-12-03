@@ -1,5 +1,5 @@
 import 'package:bpbd/helper/color_pallete.dart';
-import 'package:bpbd/provider/home/home_bloc.dart';
+import 'package:bpbd/bloc/home/home_bloc.dart';
 import 'package:bpbd/ui/core/custom_profile_card/custom_profile_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
               children: [
                 Container(
                   height: 60,
-                  padding: EdgeInsets.only(bottom: 10),
+                  padding: const EdgeInsets.only(bottom: 10),
                   width: double.infinity,
                   decoration: const BoxDecoration(
                     color: ColorPalette.generalPrimaryColor,

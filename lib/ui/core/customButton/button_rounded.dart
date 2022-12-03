@@ -25,7 +25,7 @@ class ButtonRounded extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
           color: invert
-              ? ColorPalette.generalWhite
+              ? ColorPalette.generalPrimaryColor
               : ColorPalette.generalSecondaryColor,
           borderRadius: BorderRadius.circular(15)),
       child: Padding(
@@ -44,10 +44,8 @@ class ButtonRounded extends StatelessWidget {
               ):const SizedBox(),
               Text(
                 text,
-                style: TextStyle(
-                    color: invert
-                        ? ColorPalette.generalPrimaryColor
-                        : ColorPalette.generalBackgroundColor,
+                style: const TextStyle(
+                    color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.bold),
               ),

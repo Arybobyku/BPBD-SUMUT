@@ -17,6 +17,77 @@ class _$ApiAccessor extends ApiAccessor {
   final definitionType = ApiAccessor;
 
   @override
+  Future<Response<dynamic>> login(String body) {
+    final $url = '/api/login';
+    final $headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    final $body = body;
+    final $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+      headers: $headers,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> register() {
+    final $url = '/api/register';
+    final $headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    final $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      headers: $headers,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> logout(String bearer) {
+    final $url = '/api/logout';
+    final $headers = {
+      'Authorization': bearer,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    final $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      headers: $headers,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> me() {
+    final $url = '/api/user';
+    final $headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    final $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      headers: $headers,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
   Future<Response<dynamic>> getListCase() {
     final $url = '/api/case';
     final $headers = {

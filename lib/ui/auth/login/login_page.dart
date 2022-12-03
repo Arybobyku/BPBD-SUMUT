@@ -1,9 +1,17 @@
+import 'dart:convert';
+
+import 'package:bpbd/bloc/auth/authentication/authentication_bloc.dart';
+import 'package:bpbd/data/model/me/me_model.dart';
 import 'package:bpbd/helper/color_pallete.dart';
+import 'package:bpbd/locatore_storage_service.dart';
 import 'package:bpbd/routes.dart';
+import 'package:bpbd/setup_locator.dart';
 import 'package:bpbd/ui/core/customButton/button_rounded.dart';
 import 'package:bpbd/ui/core/customFormField/custom_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -13,132 +21,175 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  var storageService = locator<LocalStorageService>();
+  String email = "";
+  String password = "";
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Column(
+    return BlocConsumer<AuthenticationBloc, AuthenticationState>(
+      listener: (context, state) {
+        if (state.isLoading) {
+          EasyLoading.show(status: 'loading...');
+        }else{
+          EasyLoading.dismiss();
+        }
+
+        state.optionFailureOrSuccess.match(
+          (t) => t.fold(
+            (l) => EasyLoading.showToast(l.toString()),
+            (r) {
+              storageService.saveToPref("token",r.accessToken);
+              storageService.saveToPref("tokenType",r.tokenType);
+              storageService.saveToPref("meModel",jsonEncode(r.meModel!.toJson()));
+              EasyLoading.dismiss();
+              Get.offAllNamed(Routes.landing);
+            },
+          ),
+          () => null,
+        );
+      },
+      builder: (context, state) {
+        return Scaffold(
+          body: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
                     children: [
-                      Container(
-                        height: 100,
-                        width: double.infinity,
-                        decoration: const BoxDecoration(
-                          color: ColorPalette.generalPrimaryColor,
-                          borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(60),
-                            bottomLeft: Radius.circular(60),
+                      Column(
+                        children: [
+                          Container(
+                            height: 100,
+                            width: double.infinity,
+                            decoration: const BoxDecoration(
+                              color: ColorPalette.generalPrimaryColor,
+                              borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(60),
+                                bottomLeft: Radius.circular(60),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 20),
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 50),
-                            const Text(
-                              "Hey There,",
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            const Text(
-                              "Welcome Back",
-                              style: TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(height: 30),
-                            InputFieldRounded(
-                              hint: "Email",
-                              label: "Email",
-                              onChange: (val) {},
-                              secureText: false,
-                            ),
-                            const SizedBox(height: 10),
-                            InputFieldRounded(
-                              hint: "Password",
-                              label: "Password",
-                              onChange: (val) {},
-                              secureText: false,
-                            ),
-                            const SizedBox(height: 15),
-                            const Text(
-                              "Forgot your password?",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: ColorPalette.generalPurple),
-                            ),
-                            const SizedBox(height: 20),
-                            ButtonRounded(
-                              text: "Login",
-                              onPressed: () {
-                                Get.toNamed(Routes.landing);
-                              },
-                              icon: const Icon(
-                                Icons.login,
-                                color: Colors.white,
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            GestureDetector(
-                              onTap: (){
-                                Get.toNamed(Routes.registerPage);
-                              },
-                              child: RichText(
-                                text: const TextSpan(
-                                  text: "Don't have an account yet? ",
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 20),
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 50),
+                                const Text(
+                                  "Hey There,",
                                   style: TextStyle(
-                                    color: ColorPalette.generalBlack,
                                     fontSize: 16,
                                   ),
-                                  children: [
-                                    TextSpan(
-                                      text: "Register",
+                                ),
+                                const SizedBox(height: 5),
+                                const Text(
+                                  "Welcome Back",
+                                  style: TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(height: 30),
+                                InputFieldRounded(
+                                  hint: "Email",
+                                  label: "Email",
+                                  onChange: (val) {
+                                    email = val;
+                                  },
+                                  secureText: false,
+                                ),
+                                const SizedBox(height: 10),
+                                InputFieldRounded(
+                                  hint: "Password",
+                                  label: "Password",
+                                  onChange: (val) {
+                                    password = val;
+                                  },
+                                  secureText: true,
+                                ),
+                                const SizedBox(height: 15),
+                                const Text(
+                                  "Forgot your password?",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: ColorPalette.generalPurple),
+                                ),
+                                const SizedBox(height: 20),
+                                ButtonRounded(
+                                  text: "Login",
+                                  onPressed: () {
+                                    context.read<AuthenticationBloc>().add(
+                                          AuthenticationEvent.login(
+                                            context,
+                                            MeModel(
+                                              email: email,
+                                              password: password,
+                                            ),
+                                          ),
+                                        );
+                                  },
+                                  icon: const Icon(
+                                    Icons.login,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.toNamed(Routes.registerPage);
+                                  },
+                                  child: RichText(
+                                    text: const TextSpan(
+                                      text: "Don't have an account yet? ",
                                       style: TextStyle(
-                                        color: ColorPalette.generalPurple,
+                                        color: ColorPalette.generalBlack,
                                         fontSize: 16,
                                       ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
+                                      children: [
+                                        TextSpan(
+                                          text: "Register",
+                                          style: TextStyle(
+                                            color: ColorPalette.generalPurple,
+                                            fontSize: 16,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "images/logo_sumut.png",
+                    height: 50,
+                    width: 50,
+                  ),
+                  const SizedBox(width: 15),
+                  Image.asset(
+                    "images/logo.png",
+                    height: 50,
+                    width: 50,
+                  )
                 ],
               ),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                "images/logo_sumut.png",
-                height: 50,
-                width: 50,
+              const SizedBox(
+                height: 20,
               ),
-              const SizedBox(width: 15),
-              Image.asset(
-                "images/logo.png",
-                height: 50,
-                width: 50,
-              )
             ],
           ),
-          const SizedBox(
-            height: 20,
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

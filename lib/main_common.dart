@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +10,7 @@ import 'package:bpbd/ui/my_app.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:injectable/injectable.dart';
 import 'data/entity/user.dart';
+import 'helper/my_http_overrides.dart';
 import 'injection.dart';
 import 'package:logger/logger.dart';
 
@@ -19,6 +22,8 @@ Future<void> mainCommon() async {
   //   },
   //   blocObserver: SimpleBlocObserver(Logger()),
   // );
+
+  HttpOverrides.global = MyHttpOverrides();
   await setUp();
 
 

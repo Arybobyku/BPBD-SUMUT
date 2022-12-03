@@ -6,6 +6,31 @@ part 'api_accessor.chopper.dart';
 
 @ChopperApi(baseUrl: "")
 abstract class ApiAccessor extends ChopperService {
+  @Post(path: "/api/login", headers: {
+    Constants.headerContentTypeText: Constants.headerApplicationJsonValue,
+    Constants.headerAcceptText: Constants.headerApplicationJsonValue
+  })
+  Future<Response> login(
+    @Body() String body,
+  );
+
+  @Post(path: "/api/register", headers: {
+    Constants.headerContentTypeText: Constants.headerApplicationJsonValue,
+    Constants.headerAcceptText: Constants.headerApplicationJsonValue
+  })
+  Future<Response> register();
+
+  @Post(path: "/api/logout", headers: {
+    Constants.headerContentTypeText: Constants.headerApplicationJsonValue,
+    Constants.headerAcceptText: Constants.headerApplicationJsonValue
+  })
+  Future<Response> logout(@Header(Constants.headerAuthorization) String bearer);
+
+  @Get(path: "/api/user", headers: {
+    Constants.headerContentTypeText: Constants.headerApplicationJsonValue,
+    Constants.headerAcceptText: Constants.headerApplicationJsonValue
+  })
+  Future<Response> me();
 
   @Get(path: "/api/case", headers: {
     Constants.headerContentTypeText: Constants.headerApplicationJsonValue,
@@ -43,4 +68,3 @@ abstract class ApiAccessor extends ChopperService {
     return _$ApiAccessor(client);
   }
 }
-

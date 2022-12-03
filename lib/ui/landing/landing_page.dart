@@ -1,5 +1,5 @@
 import 'package:bpbd/helper/color_pallete.dart';
-import 'package:bpbd/provider/landing/landing_bloc.dart';
+import 'package:bpbd/bloc/landing/landing_bloc.dart';
 import 'package:bpbd/ui/home/home_page.dart';
 import 'package:bpbd/ui/inventory/inventory_page.dart';
 import 'package:bpbd/ui/report/report_page.dart';

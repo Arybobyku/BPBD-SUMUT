@@ -1,11 +1,15 @@
-import 'package:bpbd/data/constants/constants.dart';
+
+import 'dart:convert';
+
+import 'package:bpbd/bloc/auth/authentication/authentication_bloc.dart';
+import 'package:bpbd/data/model/me/me_model.dart';
 import 'package:bpbd/helper/color_pallete.dart';
 import 'package:bpbd/locatore_storage_service.dart';
 import 'package:bpbd/routes.dart';
 import 'package:bpbd/setup_locator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
 
 class NavigatorPage extends StatefulWidget {
   const NavigatorPage({Key? key}) : super(key: key);
@@ -39,18 +43,21 @@ class _NavigatorPageState extends State<NavigatorPage> {
   }
 
   navigated(BuildContext context) async {
-
     var storageService = locator<LocalStorageService>();
-    var name = storageService.getStringFromPref(Constants.userName);
+    var token = storageService.getStringFromPref("token");
+    var me = storageService.getStringFromPref("meModel");
 
     await Future.delayed(const Duration(seconds: 5), () async {
-      if(name==null){
+      if (token == null) {
         Get.offAllNamed(Routes.loginPage);
-      }else{
+      } else {
+        var jsonDecodeMe = jsonDecode(me!);
+        var meModel = MeModel.fromJson(jsonDecodeMe);
+        context
+            .read<AuthenticationBloc>()
+            .add(AuthenticationEvent.initialize(context, meModel));
         Get.offAllNamed(Routes.landing);
       }
-
     });
-
   }
 }
