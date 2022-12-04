@@ -9,7 +9,7 @@ class MeModel with _$MeModel {
   const factory MeModel({
     int? id,
     String? name,
-    int? role,
+    String? role,
     String? email,
     String? password,
   }) = _MeModel;

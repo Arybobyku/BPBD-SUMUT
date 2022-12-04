@@ -61,7 +61,6 @@ dependencies:
   flutter_bloc:
   bloc_concurrency:
   shared_preferences:
-  camera:
   animated_text_kit:
   flutter_services_binding:
   lottie: ^1.2.2
