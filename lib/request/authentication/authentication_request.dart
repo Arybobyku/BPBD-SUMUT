@@ -51,7 +51,16 @@ class AuthenticationRequestBase implements AuthenticationRequest {
         );
         return right(_base.data);
       } else {
-        return left(ResponseError.serverError(message: response.bodyString));
+
+        debugPrint(response.bodyString.toString());
+        String responseBody = response.bodyString;
+        Map<String, dynamic> responseDecode = jsonDecode(responseBody);
+        final _base = BaseResponse.fromJson(
+          responseDecode,
+              (data) => data,
+        );
+        debugPrint("ERROR ${_base.meta.message}");
+        return left(ResponseError.serverError(message: _base.meta.message.toString()));
       }
     } catch (e) {
       debugPrint(e.toString());

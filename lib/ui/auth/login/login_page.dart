@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:bpbd/bloc/auth/authentication/authentication_bloc.dart';
 import 'package:bpbd/data/model/me/me_model.dart';
 import 'package:bpbd/helper/color_pallete.dart';
@@ -8,6 +9,7 @@ import 'package:bpbd/routes.dart';
 import 'package:bpbd/setup_locator.dart';
 import 'package:bpbd/ui/core/customButton/button_rounded.dart';
 import 'package:bpbd/ui/core/customFormField/custom_form_field.dart';
+import 'package:bpbd/ui/core/snackbar/snackbar_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -21,7 +23,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   var storageService = locator<LocalStorageService>();
   String email = "";
   String password = "";
@@ -32,17 +33,25 @@ class _LoginPageState extends State<LoginPage> {
       listener: (context, state) {
         if (state.isLoading) {
           EasyLoading.show(status: 'loading...');
-        }else{
+        } else {
           EasyLoading.dismiss();
         }
 
         state.optionFailureOrSuccess.match(
           (t) => t.fold(
-            (l) => EasyLoading.showToast(l.toString()),
+            (l) {
+              errorSnackBar(
+                context,
+                l.maybeWhen(
+                    orElse: () => "something went wrong",
+                    serverError: (error) => error.toString()),
+              );
+            },
             (r) {
-              storageService.saveToPref("token",r.accessToken);
-              storageService.saveToPref("tokenType",r.tokenType);
-              storageService.saveToPref("meModel",jsonEncode(r.meModel!.toJson()));
+              storageService.saveToPref("token", r.accessToken);
+              storageService.saveToPref("tokenType", r.tokenType);
+              storageService.saveToPref(
+                  "meModel", jsonEncode(r.meModel!.toJson()));
               EasyLoading.dismiss();
               Get.offAllNamed(Routes.landing);
             },
