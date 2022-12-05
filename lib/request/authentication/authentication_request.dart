@@ -5,6 +5,7 @@ import 'package:bpbd/data/core/base_response.dart';
 import 'package:bpbd/data/model/authentication/authentication_model.dart';
 import 'package:bpbd/data/model/me/me_model.dart';
 import 'package:bpbd/locatore_storage_service.dart';
+import 'package:bpbd/request/core/global_helper_request.dart';
 import 'package:bpbd/setup_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
@@ -43,24 +44,19 @@ class AuthenticationRequestBase implements AuthenticationRequest {
     try {
       if (response.isSuccessful) {
         debugPrint(response.body.toString());
+
         String responseBody = response.body.toString();
         Map<String, dynamic> responseDecode = jsonDecode(responseBody);
+
         final _base = BaseResponse.fromJson(
           responseDecode,
           (data) => AuthenticationModel.fromJson(data as Map<String, dynamic>),
         );
+
         return right(_base.data);
       } else {
-
         debugPrint(response.bodyString.toString());
-        String responseBody = response.bodyString;
-        Map<String, dynamic> responseDecode = jsonDecode(responseBody);
-        final _base = BaseResponse.fromJson(
-          responseDecode,
-              (data) => data,
-        );
-        debugPrint("ERROR ${_base.meta.message}");
-        return left(ResponseError.serverError(message: _base.meta.message.toString()));
+        return left(ResponseError.serverError(message: parsedError(response.bodyString)));
       }
     } catch (e) {
       debugPrint(e.toString());
