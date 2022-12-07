@@ -8,8 +8,11 @@ part 'me_model.g.dart';
 class MeModel with _$MeModel {
   const factory MeModel({
     int? id,
-    String? name,
-    String? role,
+    @JsonKey(name: "name") String? name,
+    int? role,
+    String? nip,
+    @JsonKey(name: "no_hp") String? noHp,
+    @JsonKey(name: "id_kota") int? idKota,
     String? email,
     String? password,
   }) = _MeModel;

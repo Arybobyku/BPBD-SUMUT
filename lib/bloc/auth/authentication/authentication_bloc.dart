@@ -25,12 +25,15 @@ class AuthenticationBloc
       await event.map(
         register: (e) async {
           emit(AuthenticationState.initial().copyWith(isLoading: true));
-
           final failureOrSuccess =
-              await _authenticationRequest.register(e.context, e.meModel);
+          await _authenticationRequest.register(e.context, e.meModel);
 
           failureOrSuccess.match(
-              (l) => null, (r) => emit(state.copyWith(meModel: r.meModel)));
+                (l) => null,
+                (r) => emit(
+              state.copyWith(meModel: r.meModel),
+            ),
+          );
 
           emit(
             state.copyWith(

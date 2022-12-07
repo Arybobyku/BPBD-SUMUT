@@ -5,12 +5,15 @@ import 'package:bpbd/data/core/base_response.dart';
 
 String parsedError(String responseBody){
   Map<String, dynamic> responseDecode = jsonDecode(responseBody);
-  final _base = BaseResponse.fromJson(
-    responseDecode,
-        (data) => data,
-  );
-
-  return _base.meta.message;
+  try{
+    final _base = BaseResponse.fromJson(
+      responseDecode,
+          (data) => data,
+    );
+    return _base.meta.message;
+  }catch(e){
+    return responseDecode["message"];
+  }
 }
 
 parsedSuccess(String responseBody, Function(Object? json) fromJsonT){

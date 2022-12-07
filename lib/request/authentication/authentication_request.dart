@@ -67,8 +67,37 @@ class AuthenticationRequestBase implements AuthenticationRequest {
   @override
   Future<Either<ResponseError, AuthenticationModel>> register(
       BuildContext context, MeModel meModel) async {
-    // TODO: implement register
-    throw UnimplementedError();
+    final body = jsonEncode({
+      "name": meModel.name,
+      "nip": meModel.email,
+      "no_hp": meModel.noHp,
+      "id_kota": meModel.idKota,
+      "email": meModel.email,
+      "password": meModel.password,
+    });
+    final response =
+    await Provider.of<ApiAccessor>(context, listen: false).register(body);
+    try {
+      if (response.isSuccessful) {
+        debugPrint(response.body.toString());
+
+        String responseBody = response.body.toString();
+        Map<String, dynamic> responseDecode = jsonDecode(responseBody);
+
+        final _base = BaseResponse.fromJson(
+          responseDecode,
+              (data) => AuthenticationModel.fromJson(data as Map<String, dynamic>),
+        );
+
+        return right(_base.data);
+      } else {
+        debugPrint(response.bodyString.toString());
+        return left(ResponseError.serverError(message: parsedError(response.bodyString)));
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+      return left(ResponseError.serverError(message: e.toString()));
+    }
   }
 
   @override

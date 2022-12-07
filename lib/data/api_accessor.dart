@@ -18,7 +18,9 @@ abstract class ApiAccessor extends ChopperService {
     Constants.headerContentTypeText: Constants.headerApplicationJsonValue,
     Constants.headerAcceptText: Constants.headerApplicationJsonValue
   })
-  Future<Response> register();
+  Future<Response> register(
+    @Body() String body,
+  );
 
   @Post(path: "/api/logout", headers: {
     Constants.headerContentTypeText: Constants.headerApplicationJsonValue,

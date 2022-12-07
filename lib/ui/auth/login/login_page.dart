@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:bpbd/bloc/auth/authentication/authentication_bloc.dart';
 import 'package:bpbd/data/model/me/me_model.dart';
 import 'package:bpbd/helper/color_pallete.dart';
@@ -12,8 +11,8 @@ import 'package:bpbd/ui/core/customFormField/custom_form_field.dart';
 import 'package:bpbd/ui/core/snackbar/snackbar_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -26,6 +25,8 @@ class _LoginPageState extends State<LoginPage> {
   var storageService = locator<LocalStorageService>();
   String email = "";
   String password = "";
+
+  MeModel meModel = const MeModel();
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                                   hint: "Email",
                                   label: "Email",
                                   onChange: (val) {
-                                    email = val;
+                                    meModel = meModel.copyWith(email: val);
                                   },
                                   secureText: false,
                                 ),
@@ -113,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                                   hint: "Password",
                                   label: "Password",
                                   onChange: (val) {
-                                    password = val;
+                                    meModel = meModel.copyWith(password: val);
                                   },
                                   secureText: true,
                                 ),
@@ -131,10 +132,7 @@ class _LoginPageState extends State<LoginPage> {
                                     context.read<AuthenticationBloc>().add(
                                           AuthenticationEvent.login(
                                             context,
-                                            MeModel(
-                                              email: email,
-                                              password: password,
-                                            ),
+                                            meModel,
                                           ),
                                         );
                                   },
@@ -201,4 +199,5 @@ class _LoginPageState extends State<LoginPage> {
       },
     );
   }
+
 }

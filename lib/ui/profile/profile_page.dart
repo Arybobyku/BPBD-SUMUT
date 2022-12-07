@@ -49,10 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const CustomProfileCard(
-                    name: "Ary Boby Siregar",
-                    nip: "7294719471941",
-                  ),
+                  const CustomProfileCard(  ),
                   ButtonRounded(
                     text: "logout",
                     invert: true,

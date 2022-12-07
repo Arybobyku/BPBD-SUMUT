@@ -36,17 +36,19 @@ class _$ApiAccessor extends ApiAccessor {
   }
 
   @override
-  Future<Response<dynamic>> register() {
+  Future<Response<dynamic>> register(String body) {
     final $url = '/api/register';
     final $headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     };
 
+    final $body = body;
     final $request = Request(
       'POST',
       $url,
       client.baseUrl,
+      body: $body,
       headers: $headers,
     );
     return client.send<dynamic, dynamic>($request);

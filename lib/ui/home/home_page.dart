@@ -1,3 +1,4 @@
+import 'package:bpbd/bloc/auth/authentication/authentication_bloc.dart';
 import 'package:bpbd/helper/color_pallete.dart';
 import 'package:bpbd/bloc/home/home_bloc.dart';
 import 'package:bpbd/ui/core/custom_profile_card/custom_profile_card.dart';
@@ -21,45 +22,46 @@ class HomePage extends StatelessWidget {
           () {},
         ),
         builder: (context, state) {
-          return SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          return RefreshIndicator(
+            onRefresh: () async {},
+            child: ListView(
               children: [
-                Container(
-                  height: 60,
-                  padding: const EdgeInsets.only(bottom: 10),
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: ColorPalette.generalPrimaryColor,
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(60),
-                      bottomLeft: Radius.circular(60),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: const [
-                      Icon(
-                        Icons.location_pin,
-                        color: Colors.white,
-                        size: 20,
+                BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                  builder: (context, state) {
+                    return Container(
+                      height: 40,
+                      padding: const EdgeInsets.only(bottom: 10),
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                        color: ColorPalette.generalPrimaryColor,
+                        borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(60),
+                          bottomLeft: Radius.circular(60),
+                        ),
                       ),
-                      SizedBox(width: 4),
-                      Text(
-                        "Kota Medan",
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      )
-                    ],
-                  ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: const [
+                          Icon(
+                            Icons.location_pin,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                          SizedBox(width: 4),
+                          Text(
+                            "Medan",
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          )
+                        ],
+                      ),
+                    );
+                  },
                 ),
-                const CustomProfileCard(
-                  name: "Ary Boby Siregar",
-                  nip: "7294719471941",
-                ),
+                const CustomProfileCard(),
                 CarouselSlider(
                   options: CarouselOptions(height: 160.0),
                   items: [1, 2].map((i) {

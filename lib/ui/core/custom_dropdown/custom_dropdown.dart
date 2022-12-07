@@ -20,9 +20,10 @@ class DropdownContainer extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 15.0, top: 10),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(15))),
+          border: Border.all(color: ColorPalette.generalGrey),
+          borderRadius: const BorderRadius.all(Radius.circular(15))),
       child: DropdownButton(
         value: value,
         isExpanded: true,
