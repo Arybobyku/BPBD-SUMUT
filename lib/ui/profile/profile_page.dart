@@ -4,10 +4,10 @@ import 'package:bpbd/locatore_storage_service.dart';
 import 'package:bpbd/routes.dart';
 import 'package:bpbd/setup_locator.dart';
 import 'package:bpbd/ui/core/customButton/button_rounded.dart';
+import 'package:bpbd/ui/core/loading/loading_custom.dart';
+import 'package:bpbd/ui/core/snackbar/snackbar_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import '../core/custom_profile_card/custom_profile_card.dart';
 
@@ -26,18 +26,18 @@ class _ProfilePageState extends State<ProfilePage> {
       body: BlocConsumer<AuthenticationBloc, AuthenticationState>(
         listener: (context, state) {
           if (state.isLoading) {
-            EasyLoading.show(status: 'loading...');
+            showLoading(context);
           }else{
-            EasyLoading.dismiss();
+            hideLoading(context);
           }
 
           state.optionFailureOrSuccess.match(
                 (t) => t.fold(
-                  (l) => EasyLoading.showToast(l.toString()),
+                  (l) => errorSnackBar(context, l.toString()),
                   (r) {
                 var storageService = locator<LocalStorageService>();
                 storageService.clearPref();
-                EasyLoading.dismiss();
+                hideLoading(context);
                 Get.offAllNamed(Routes.navigator);
               },
             ),

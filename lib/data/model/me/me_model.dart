@@ -1,3 +1,4 @@
+import 'package:bpbd/data/model/kota/kota_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'me_model.freezed.dart';
@@ -13,6 +14,7 @@ class MeModel with _$MeModel {
     String? nip,
     @JsonKey(name: "no_hp") String? noHp,
     @JsonKey(name: "id_kota") int? idKota,
+    @JsonKey(name: "kota") KotaModel? kotaModel,
     String? email,
     String? password,
   }) = _MeModel;

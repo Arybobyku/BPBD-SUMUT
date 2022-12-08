@@ -8,10 +8,10 @@ import 'package:bpbd/routes.dart';
 import 'package:bpbd/setup_locator.dart';
 import 'package:bpbd/ui/core/customButton/button_rounded.dart';
 import 'package:bpbd/ui/core/customFormField/custom_form_field.dart';
+import 'package:bpbd/ui/core/loading/loading_custom.dart';
 import 'package:bpbd/ui/core/snackbar/snackbar_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends StatefulWidget {
@@ -33,9 +33,9 @@ class _LoginPageState extends State<LoginPage> {
     return BlocConsumer<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
         if (state.isLoading) {
-          EasyLoading.show(status: 'loading...');
+          showLoading(context);
         } else {
-          EasyLoading.dismiss();
+          hideLoading(context);
         }
 
         state.optionFailureOrSuccess.match(
@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
               storageService.saveToPref("tokenType", r.tokenType);
               storageService.saveToPref(
                   "meModel", jsonEncode(r.meModel!.toJson()));
-              EasyLoading.dismiss();
+              hideLoading(context);
               Get.offAllNamed(Routes.landing);
             },
           ),

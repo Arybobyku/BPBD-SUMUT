@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:bpbd/ui/core/customLoadingImage/custom_loading_image.dart';
 // import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewPage extends StatefulWidget {
@@ -51,7 +50,7 @@ class _WebViewPageState extends State<WebViewPage> {
               if(isLoading)
                 const Align(
                   alignment: Alignment.center,
-                  child: CustomLoadingImage(),
+                  child: SizedBox(),
                 ),
             ],
           ),

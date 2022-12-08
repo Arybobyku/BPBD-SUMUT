@@ -7,10 +7,10 @@ import 'package:bpbd/routes.dart';
 import 'package:bpbd/ui/core/customButton/button_rounded.dart';
 import 'package:bpbd/ui/core/customFormField/custom_form_field.dart';
 import 'package:bpbd/ui/core/custom_dropdown/custom_dropdown.dart';
+import 'package:bpbd/ui/core/loading/loading_custom.dart';
 import 'package:bpbd/ui/core/snackbar/snackbar_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -30,9 +30,9 @@ class _RegisterPageState extends State<RegisterPage> {
       body: BlocConsumer<AuthenticationBloc, AuthenticationState>(
         listener: (context, state) {
           if (state.isLoading) {
-            EasyLoading.show(status: 'loading...');
+            showLoading(context);
           } else {
-            EasyLoading.dismiss();
+            hideLoading(context);
           }
 
           state.optionFailureOrSuccess.match(
