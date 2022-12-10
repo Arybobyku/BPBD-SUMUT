@@ -2,6 +2,7 @@ import 'package:bpbd/bloc/auth/authentication/authentication_bloc.dart';
 import 'package:bpbd/helper/color_pallete.dart';
 import 'package:bpbd/bloc/home/home_bloc.dart';
 import 'package:bpbd/ui/core/custom_profile_card/custom_profile_card.dart';
+import 'package:bpbd/ui/core/cutom_header/custom_header.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -29,41 +30,7 @@ class HomePage extends StatelessWidget {
             onRefresh: () async {},
             child: ListView(
               children: [
-                BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                  builder: (context, state) {
-                    return Container(
-                      height: 40,
-                      padding: const EdgeInsets.only(bottom: 10),
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        color: ColorPalette.generalPrimaryColor,
-                        borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(60),
-                          bottomLeft: Radius.circular(60),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          const Icon(
-                            Icons.location_pin,
-                            color: Colors.white,
-                            size: 20,
-                          ),
-                          const SizedBox(width: 4),
-                          Text(
-                            state.meModel?.kotaModel?.namaKota ?? "-",
-                            style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                ),
+                const CustomHeader(),
                 const CustomProfileCard(),
                 const CustomCaraousel(),
                 const SizedBox(height: 20),

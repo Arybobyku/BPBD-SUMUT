@@ -11,18 +11,21 @@ class InputFieldRounded extends StatelessWidget {
   final TextInputType keyboardType;
   final String? errortext;
   final FormFieldValidator? validatorCheck;
+  final int maxLines;
+  final int minLines;
 
-  const InputFieldRounded(
-      {Key? key,
-      required this.hint,
-      required this.label,
-      required this.onChange,
-      this.validatorCheck,
-      this.initialValue,
-      this.suffixIcon,
-      this.keyboardType = TextInputType.text,
-      this.errortext,
-      required this.secureText})
+  const InputFieldRounded({Key? key,
+    required this.hint,
+    required this.label,
+    required this.onChange,
+    this.validatorCheck,
+    this.initialValue,
+    this.suffixIcon,
+    this.keyboardType = TextInputType.text,
+    this.maxLines = 1,
+    this.minLines = 1,
+    this.errortext,
+    required this.secureText})
       : super(key: key);
 
   @override
@@ -30,7 +33,7 @@ class InputFieldRounded extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10.0),
       padding: const EdgeInsets.symmetric(horizontal: 10),
-      decoration:  BoxDecoration(
+      decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: const BorderRadius.all(Radius.circular(15)),
           border: Border.all(color: ColorPalette.generalGrey)),
@@ -41,6 +44,8 @@ class InputFieldRounded extends StatelessWidget {
         obscureText: secureText,
         cursorColor: ColorPalette.generalPrimaryColor,
         keyboardType: keyboardType,
+        minLines:minLines,
+        maxLines:maxLines,
         decoration: InputDecoration(
             errorText: errortext,
             filled: false,
@@ -48,7 +53,7 @@ class InputFieldRounded extends StatelessWidget {
             hintStyle: const TextStyle(color: ColorPalette.generalPrimaryColor),
             labelText: label,
             floatingLabelStyle:
-                const TextStyle(color: ColorPalette.generalPrimaryColor),
+            const TextStyle(color: ColorPalette.generalPrimaryColor),
             suffixIcon: suffixIcon,
             focusColor: ColorPalette.generalPrimaryColor,
             border: InputBorder.none),

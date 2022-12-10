@@ -55,10 +55,9 @@ class _$ApiAccessor extends ApiAccessor {
   }
 
   @override
-  Future<Response<dynamic>> logout(String bearer) {
+  Future<Response<dynamic>> logout() {
     final $url = '/api/logout';
     final $headers = {
-      'Authorization': bearer,
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     };
@@ -84,6 +83,25 @@ class _$ApiAccessor extends ApiAccessor {
       'GET',
       $url,
       client.baseUrl,
+      headers: $headers,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> getAllInventaris(dynamic query) {
+    final $url = '/api/inventaris';
+    final $params = <String, dynamic>{'id_kota': query};
+    final $headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    final $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
       headers: $headers,
     );
     return client.send<dynamic, dynamic>($request);

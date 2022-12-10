@@ -109,6 +109,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - images/
+    - assets/data/kabupaten/12.json
+    - assets/data/kecamatan/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

@@ -56,7 +56,14 @@ class _NavigatorPageState extends State<NavigatorPage> {
         context
             .read<AuthenticationBloc>()
             .add(AuthenticationEvent.initialize(context, meModel));
-        Get.offAllNamed(Routes.landing);
+
+        var isOnBoarding = storageService.getBoolFromPref("isOnBoarding");
+        if(isOnBoarding==null){
+          storageService.saveToPref("isOnBoarding",true);
+          Get.offAllNamed(Routes.onBoarding);
+        }else{
+          Get.offAllNamed(Routes.landing);
+        }
       }
     });
   }

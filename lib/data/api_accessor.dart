@@ -1,3 +1,4 @@
+import 'package:bpbd/data/inteceptor.dart';
 import 'package:chopper/chopper.dart';
 import 'package:bpbd/data/constants/constants.dart';
 import 'package:injectable/injectable.dart';
@@ -26,13 +27,20 @@ abstract class ApiAccessor extends ChopperService {
     Constants.headerContentTypeText: Constants.headerApplicationJsonValue,
     Constants.headerAcceptText: Constants.headerApplicationJsonValue
   })
-  Future<Response> logout(@Header(Constants.headerAuthorization) String bearer);
+  Future<Response> logout();
 
   @Get(path: "/api/user", headers: {
     Constants.headerContentTypeText: Constants.headerApplicationJsonValue,
     Constants.headerAcceptText: Constants.headerApplicationJsonValue
   })
   Future<Response> me();
+
+  @Get(path: "/api/inventaris", headers: {
+    Constants.headerContentTypeText: Constants.headerApplicationJsonValue,
+    Constants.headerAcceptText: Constants.headerApplicationJsonValue
+  })
+  Future<Response> getAllInventaris(
+      @Query("id_kota") query);
 
   @Get(path: "/api/case", headers: {
     Constants.headerContentTypeText: Constants.headerApplicationJsonValue,
@@ -66,7 +74,41 @@ abstract class ApiAccessor extends ChopperService {
 
   static ApiAccessor create() {
     final client = ChopperClient(
-        baseUrl: Constants.apiBaseUrl, services: [_$ApiAccessor()]);
+        baseUrl: Constants.apiBaseUrl,
+        services: [
+      _$ApiAccessor(),
+    ], interceptors: [
+      (Request request) async {
+        if (request.method == HttpMethod.Post) {
+          chopperLogger.info('Performed a POST request');
+          chopperLogger.info('${request.url}');
+          chopperLogger.info('${request.baseUrl}');
+          chopperLogger.info('${request.headers}');
+          chopperLogger.info('${request.parameters}');
+          chopperLogger.info('${request.body}');
+        }
+        return request;
+      },
+      (Request request) async {
+        if (request.method == HttpMethod.Get) {
+          chopperLogger.info('Performed a GET request');
+          chopperLogger.info('${request.url}');
+          chopperLogger.info('${request.baseUrl}');
+          chopperLogger.info('${request.headers}');
+          chopperLogger.info('${request.parameters}');
+          chopperLogger.info('${request.body}');
+        }
+        return request;
+      },
+      (Response response) async {
+        if (response.statusCode == 404) {
+          chopperLogger.severe('404 NOT FOUND');
+        }
+        return response;
+      },
+      MyRequestInterceptor(),
+    ]);
     return _$ApiAccessor(client);
   }
 }
+

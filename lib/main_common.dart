@@ -12,7 +12,8 @@ import 'package:injectable/injectable.dart';
 import 'data/entity/user.dart';
 import 'helper/my_http_overrides.dart';
 import 'injection.dart';
-import 'package:logger/logger.dart';
+
+import 'package:logging/logging.dart';
 
 Future<void> mainCommon() async {
   // BlocOverrides.runZoned(
@@ -24,6 +25,7 @@ Future<void> mainCommon() async {
   // );
 
   HttpOverrides.global = MyHttpOverrides();
+  _setupLogging();
   await setUp();
 
 
@@ -39,4 +41,12 @@ Future<void> setUp() async {
   await SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
   );
+}
+
+
+void _setupLogging() {
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((rec) {
+    print('${rec.level.name}: ${rec.time}: ${rec.message}');
+  });
 }

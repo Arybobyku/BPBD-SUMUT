@@ -56,7 +56,8 @@ class AuthenticationRequestBase implements AuthenticationRequest {
         return right(_base.data);
       } else {
         debugPrint(response.bodyString.toString());
-        return left(ResponseError.serverError(message: parsedError(response.bodyString)));
+        return left(ResponseError.serverError(
+            message: parsedError(response.bodyString)));
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -76,7 +77,7 @@ class AuthenticationRequestBase implements AuthenticationRequest {
       "password": meModel.password,
     });
     final response =
-    await Provider.of<ApiAccessor>(context, listen: false).register(body);
+        await Provider.of<ApiAccessor>(context, listen: false).register(body);
     try {
       if (response.isSuccessful) {
         debugPrint(response.body.toString());
@@ -86,13 +87,14 @@ class AuthenticationRequestBase implements AuthenticationRequest {
 
         final _base = BaseResponse.fromJson(
           responseDecode,
-              (data) => AuthenticationModel.fromJson(data as Map<String, dynamic>),
+          (data) => AuthenticationModel.fromJson(data as Map<String, dynamic>),
         );
 
         return right(_base.data);
       } else {
         debugPrint(response.bodyString.toString());
-        return left(ResponseError.serverError(message: parsedError(response.bodyString)));
+        return left(ResponseError.serverError(
+            message: parsedError(response.bodyString)));
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -101,14 +103,10 @@ class AuthenticationRequestBase implements AuthenticationRequest {
   }
 
   @override
-  Future<Either<ResponseError, AuthenticationModel>> logout(BuildContext context)async{
-    var storageService = locator<LocalStorageService>();
-    var token = storageService.getStringFromPref("token");
-    var tokenType = storageService.getStringFromPref("tokenType");
+  Future<Either<ResponseError, AuthenticationModel>> logout(
+      BuildContext context) async {
     final response =
-    await Provider.of<ApiAccessor>(context, listen: false).logout(
-      "$tokenType $token"
-    );
+        await Provider.of<ApiAccessor>(context, listen: false).logout();
     try {
       if (response.isSuccessful) {
         return right(const AuthenticationModel());
