@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$InventarisEventTearOff {
   const _$InventarisEventTearOff();
 
-  _watchAll watchAll(BuildContext context, String idKota) {
+  _watchAll watchAll(BuildContext context, int idKota) {
     return _watchAll(
       context,
       idKota,
@@ -32,21 +32,21 @@ const $InventarisEvent = _$InventarisEventTearOff();
 /// @nodoc
 mixin _$InventarisEvent {
   BuildContext get context => throw _privateConstructorUsedError;
-  String get idKota => throw _privateConstructorUsedError;
+  int get idKota => throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(BuildContext context, String idKota) watchAll,
+    required TResult Function(BuildContext context, int idKota) watchAll,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(BuildContext context, String idKota)? watchAll,
+    TResult Function(BuildContext context, int idKota)? watchAll,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(BuildContext context, String idKota)? watchAll,
+    TResult Function(BuildContext context, int idKota)? watchAll,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -77,7 +77,7 @@ abstract class $InventarisEventCopyWith<$Res> {
   factory $InventarisEventCopyWith(
           InventarisEvent value, $Res Function(InventarisEvent) then) =
       _$InventarisEventCopyWithImpl<$Res>;
-  $Res call({BuildContext context, String idKota});
+  $Res call({BuildContext context, int idKota});
 }
 
 /// @nodoc
@@ -102,7 +102,7 @@ class _$InventarisEventCopyWithImpl<$Res>
       idKota: idKota == freezed
           ? _value.idKota
           : idKota // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
     ));
   }
 }
@@ -113,7 +113,7 @@ abstract class _$watchAllCopyWith<$Res>
   factory _$watchAllCopyWith(_watchAll value, $Res Function(_watchAll) then) =
       __$watchAllCopyWithImpl<$Res>;
   @override
-  $Res call({BuildContext context, String idKota});
+  $Res call({BuildContext context, int idKota});
 }
 
 /// @nodoc
@@ -138,7 +138,7 @@ class __$watchAllCopyWithImpl<$Res> extends _$InventarisEventCopyWithImpl<$Res>
       idKota == freezed
           ? _value.idKota
           : idKota // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
     ));
   }
 }
@@ -151,7 +151,7 @@ class _$_watchAll implements _watchAll {
   @override
   final BuildContext context;
   @override
-  final String idKota;
+  final int idKota;
 
   @override
   String toString() {
@@ -181,7 +181,7 @@ class _$_watchAll implements _watchAll {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(BuildContext context, String idKota) watchAll,
+    required TResult Function(BuildContext context, int idKota) watchAll,
   }) {
     return watchAll(context, idKota);
   }
@@ -189,7 +189,7 @@ class _$_watchAll implements _watchAll {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(BuildContext context, String idKota)? watchAll,
+    TResult Function(BuildContext context, int idKota)? watchAll,
   }) {
     return watchAll?.call(context, idKota);
   }
@@ -197,7 +197,7 @@ class _$_watchAll implements _watchAll {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(BuildContext context, String idKota)? watchAll,
+    TResult Function(BuildContext context, int idKota)? watchAll,
     required TResult orElse(),
   }) {
     if (watchAll != null) {
@@ -236,12 +236,12 @@ class _$_watchAll implements _watchAll {
 }
 
 abstract class _watchAll implements InventarisEvent {
-  const factory _watchAll(BuildContext context, String idKota) = _$_watchAll;
+  const factory _watchAll(BuildContext context, int idKota) = _$_watchAll;
 
   @override
   BuildContext get context;
   @override
-  String get idKota;
+  int get idKota;
   @override
   @JsonKey(ignore: true)
   _$watchAllCopyWith<_watchAll> get copyWith =>

@@ -26,11 +26,11 @@ class AuthenticationBloc
         register: (e) async {
           emit(AuthenticationState.initial().copyWith(isLoading: true));
           final failureOrSuccess =
-          await _authenticationRequest.register(e.context, e.meModel);
+              await _authenticationRequest.register(e.context, e.meModel);
 
           failureOrSuccess.match(
-                (l) => null,
-                (r) => emit(
+            (l) => null,
+            (r) => emit(
               state.copyWith(meModel: r.meModel),
             ),
           );
@@ -73,7 +73,7 @@ class AuthenticationBloc
           );
         },
         initialize: (e) {
-          emit(state.copyWith(meModel: e.meModel));
+          emit(state.copyWith(meModel: e.meModel, token: e.token));
         },
       );
     });

@@ -55,7 +55,7 @@ class _NavigatorPageState extends State<NavigatorPage> {
         var meModel = MeModel.fromJson(jsonDecodeMe);
         context
             .read<AuthenticationBloc>()
-            .add(AuthenticationEvent.initialize(context, meModel));
+            .add(AuthenticationEvent.initialize(context, meModel,token));
 
         var isOnBoarding = storageService.getBoolFromPref("isOnBoarding");
         if(isOnBoarding==null){

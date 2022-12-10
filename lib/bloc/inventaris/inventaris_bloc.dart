@@ -28,7 +28,7 @@ class InventarisBloc extends Bloc<InventarisEvent, InventarisState> {
       await event.map(watchAll: (e) async {
         emit(const InventarisState.loading());
         final failureOrSuccess =
-            await inventarisRequest.getList(e.context, int.parse(e.idKota));
+            await inventarisRequest.getList(e.context,e.idKota);
         failureOrSuccess.match(
           (l) => null,
           (r) => emit(

@@ -4,6 +4,7 @@ part of 'authentication_bloc.dart';
 class AuthenticationState with _$AuthenticationState {
   const factory AuthenticationState({
     required MeModel? meModel,
+    required String? token,
     required bool isLoading,
     required bool isAuthenticated,
     required Option<Either<ResponseError, AuthenticationModel>>
@@ -15,5 +16,6 @@ class AuthenticationState with _$AuthenticationState {
     isLoading: false,
     isAuthenticated: false,
     meModel: null,
+    token: null,
   );
 }

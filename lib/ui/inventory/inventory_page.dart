@@ -1,6 +1,9 @@
+import 'package:bpbd/bloc/auth/authentication/authentication_bloc.dart';
 import 'package:bpbd/bloc/inventaris/inventaris_bloc.dart';
 import 'package:bpbd/helper/color_pallete.dart';
 import 'package:bpbd/injection.dart';
+import 'package:bpbd/locatore_storage_service.dart';
+import 'package:bpbd/setup_locator.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +18,7 @@ class InventoryPage extends StatefulWidget {
 }
 
 class _InventoryPageState extends State<InventoryPage> {
+  // var token = context.read<AuthenticationBloc>().state.token;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +27,7 @@ class _InventoryPageState extends State<InventoryPage> {
         providers: [
           BlocProvider<InventarisBloc>(
             create: (context) => getIt<InventarisBloc>()
-              ..add(InventarisEvent.watchAll(context, "1")),
+              ..add(InventarisEvent.watchAll(context, context.read<AuthenticationBloc>().state.meModel!.idKota!)),
           )
         ],
         child: BlocBuilder<InventarisBloc, InventarisState>(
@@ -46,7 +50,7 @@ class _InventoryPageState extends State<InventoryPage> {
                             var inventaris = invetarisList[index];
                             return Container(
                               margin:
-                                  const EdgeInsets.symmetric(horizontal: 20),
+                                  const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                               padding: const EdgeInsets.all(10),
                               decoration: const BoxDecoration(
                                   color: Colors.white,

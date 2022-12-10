@@ -38,10 +38,11 @@ class _$AuthenticationEventTearOff {
     );
   }
 
-  _Initialize initialize(BuildContext context, MeModel meModel) {
+  _Initialize initialize(BuildContext context, MeModel meModel, String token) {
     return _Initialize(
       context,
       meModel,
+      token,
     );
   }
 }
@@ -58,7 +59,9 @@ mixin _$AuthenticationEvent {
     required TResult Function(BuildContext context, MeModel meModel) register,
     required TResult Function(BuildContext context, MeModel meModel) login,
     required TResult Function(BuildContext context) logout,
-    required TResult Function(BuildContext context, MeModel meModel) initialize,
+    required TResult Function(
+            BuildContext context, MeModel meModel, String token)
+        initialize,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -66,7 +69,8 @@ mixin _$AuthenticationEvent {
     TResult Function(BuildContext context, MeModel meModel)? register,
     TResult Function(BuildContext context, MeModel meModel)? login,
     TResult Function(BuildContext context)? logout,
-    TResult Function(BuildContext context, MeModel meModel)? initialize,
+    TResult Function(BuildContext context, MeModel meModel, String token)?
+        initialize,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -74,7 +78,8 @@ mixin _$AuthenticationEvent {
     TResult Function(BuildContext context, MeModel meModel)? register,
     TResult Function(BuildContext context, MeModel meModel)? login,
     TResult Function(BuildContext context)? logout,
-    TResult Function(BuildContext context, MeModel meModel)? initialize,
+    TResult Function(BuildContext context, MeModel meModel, String token)?
+        initialize,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -226,7 +231,9 @@ class _$_Register implements _Register {
     required TResult Function(BuildContext context, MeModel meModel) register,
     required TResult Function(BuildContext context, MeModel meModel) login,
     required TResult Function(BuildContext context) logout,
-    required TResult Function(BuildContext context, MeModel meModel) initialize,
+    required TResult Function(
+            BuildContext context, MeModel meModel, String token)
+        initialize,
   }) {
     return register(context, meModel);
   }
@@ -237,7 +244,8 @@ class _$_Register implements _Register {
     TResult Function(BuildContext context, MeModel meModel)? register,
     TResult Function(BuildContext context, MeModel meModel)? login,
     TResult Function(BuildContext context)? logout,
-    TResult Function(BuildContext context, MeModel meModel)? initialize,
+    TResult Function(BuildContext context, MeModel meModel, String token)?
+        initialize,
   }) {
     return register?.call(context, meModel);
   }
@@ -248,7 +256,8 @@ class _$_Register implements _Register {
     TResult Function(BuildContext context, MeModel meModel)? register,
     TResult Function(BuildContext context, MeModel meModel)? login,
     TResult Function(BuildContext context)? logout,
-    TResult Function(BuildContext context, MeModel meModel)? initialize,
+    TResult Function(BuildContext context, MeModel meModel, String token)?
+        initialize,
     required TResult orElse(),
   }) {
     if (register != null) {
@@ -393,7 +402,9 @@ class _$_Login implements _Login {
     required TResult Function(BuildContext context, MeModel meModel) register,
     required TResult Function(BuildContext context, MeModel meModel) login,
     required TResult Function(BuildContext context) logout,
-    required TResult Function(BuildContext context, MeModel meModel) initialize,
+    required TResult Function(
+            BuildContext context, MeModel meModel, String token)
+        initialize,
   }) {
     return login(context, meModel);
   }
@@ -404,7 +415,8 @@ class _$_Login implements _Login {
     TResult Function(BuildContext context, MeModel meModel)? register,
     TResult Function(BuildContext context, MeModel meModel)? login,
     TResult Function(BuildContext context)? logout,
-    TResult Function(BuildContext context, MeModel meModel)? initialize,
+    TResult Function(BuildContext context, MeModel meModel, String token)?
+        initialize,
   }) {
     return login?.call(context, meModel);
   }
@@ -415,7 +427,8 @@ class _$_Login implements _Login {
     TResult Function(BuildContext context, MeModel meModel)? register,
     TResult Function(BuildContext context, MeModel meModel)? login,
     TResult Function(BuildContext context)? logout,
-    TResult Function(BuildContext context, MeModel meModel)? initialize,
+    TResult Function(BuildContext context, MeModel meModel, String token)?
+        initialize,
     required TResult orElse(),
   }) {
     if (login != null) {
@@ -541,7 +554,9 @@ class _$_Logout implements _Logout {
     required TResult Function(BuildContext context, MeModel meModel) register,
     required TResult Function(BuildContext context, MeModel meModel) login,
     required TResult Function(BuildContext context) logout,
-    required TResult Function(BuildContext context, MeModel meModel) initialize,
+    required TResult Function(
+            BuildContext context, MeModel meModel, String token)
+        initialize,
   }) {
     return logout(context);
   }
@@ -552,7 +567,8 @@ class _$_Logout implements _Logout {
     TResult Function(BuildContext context, MeModel meModel)? register,
     TResult Function(BuildContext context, MeModel meModel)? login,
     TResult Function(BuildContext context)? logout,
-    TResult Function(BuildContext context, MeModel meModel)? initialize,
+    TResult Function(BuildContext context, MeModel meModel, String token)?
+        initialize,
   }) {
     return logout?.call(context);
   }
@@ -563,7 +579,8 @@ class _$_Logout implements _Logout {
     TResult Function(BuildContext context, MeModel meModel)? register,
     TResult Function(BuildContext context, MeModel meModel)? login,
     TResult Function(BuildContext context)? logout,
-    TResult Function(BuildContext context, MeModel meModel)? initialize,
+    TResult Function(BuildContext context, MeModel meModel, String token)?
+        initialize,
     required TResult orElse(),
   }) {
     if (logout != null) {
@@ -627,7 +644,7 @@ abstract class _$InitializeCopyWith<$Res>
           _Initialize value, $Res Function(_Initialize) then) =
       __$InitializeCopyWithImpl<$Res>;
   @override
-  $Res call({BuildContext context, MeModel meModel});
+  $Res call({BuildContext context, MeModel meModel, String token});
 
   $MeModelCopyWith<$Res> get meModel;
 }
@@ -647,6 +664,7 @@ class __$InitializeCopyWithImpl<$Res>
   $Res call({
     Object? context = freezed,
     Object? meModel = freezed,
+    Object? token = freezed,
   }) {
     return _then(_Initialize(
       context == freezed
@@ -657,6 +675,10 @@ class __$InitializeCopyWithImpl<$Res>
           ? _value.meModel
           : meModel // ignore: cast_nullable_to_non_nullable
               as MeModel,
+      token == freezed
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 
@@ -671,16 +693,18 @@ class __$InitializeCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Initialize implements _Initialize {
-  const _$_Initialize(this.context, this.meModel);
+  const _$_Initialize(this.context, this.meModel, this.token);
 
   @override
   final BuildContext context;
   @override
   final MeModel meModel;
+  @override
+  final String token;
 
   @override
   String toString() {
-    return 'AuthenticationEvent.initialize(context: $context, meModel: $meModel)';
+    return 'AuthenticationEvent.initialize(context: $context, meModel: $meModel, token: $token)';
   }
 
   @override
@@ -689,14 +713,16 @@ class _$_Initialize implements _Initialize {
         (other.runtimeType == runtimeType &&
             other is _Initialize &&
             const DeepCollectionEquality().equals(other.context, context) &&
-            const DeepCollectionEquality().equals(other.meModel, meModel));
+            const DeepCollectionEquality().equals(other.meModel, meModel) &&
+            const DeepCollectionEquality().equals(other.token, token));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(context),
-      const DeepCollectionEquality().hash(meModel));
+      const DeepCollectionEquality().hash(meModel),
+      const DeepCollectionEquality().hash(token));
 
   @JsonKey(ignore: true)
   @override
@@ -709,9 +735,11 @@ class _$_Initialize implements _Initialize {
     required TResult Function(BuildContext context, MeModel meModel) register,
     required TResult Function(BuildContext context, MeModel meModel) login,
     required TResult Function(BuildContext context) logout,
-    required TResult Function(BuildContext context, MeModel meModel) initialize,
+    required TResult Function(
+            BuildContext context, MeModel meModel, String token)
+        initialize,
   }) {
-    return initialize(context, meModel);
+    return initialize(context, meModel, token);
   }
 
   @override
@@ -720,9 +748,10 @@ class _$_Initialize implements _Initialize {
     TResult Function(BuildContext context, MeModel meModel)? register,
     TResult Function(BuildContext context, MeModel meModel)? login,
     TResult Function(BuildContext context)? logout,
-    TResult Function(BuildContext context, MeModel meModel)? initialize,
+    TResult Function(BuildContext context, MeModel meModel, String token)?
+        initialize,
   }) {
-    return initialize?.call(context, meModel);
+    return initialize?.call(context, meModel, token);
   }
 
   @override
@@ -731,11 +760,12 @@ class _$_Initialize implements _Initialize {
     TResult Function(BuildContext context, MeModel meModel)? register,
     TResult Function(BuildContext context, MeModel meModel)? login,
     TResult Function(BuildContext context)? logout,
-    TResult Function(BuildContext context, MeModel meModel)? initialize,
+    TResult Function(BuildContext context, MeModel meModel, String token)?
+        initialize,
     required TResult orElse(),
   }) {
     if (initialize != null) {
-      return initialize(context, meModel);
+      return initialize(context, meModel, token);
     }
     return orElse();
   }
@@ -779,12 +809,13 @@ class _$_Initialize implements _Initialize {
 }
 
 abstract class _Initialize implements AuthenticationEvent {
-  const factory _Initialize(BuildContext context, MeModel meModel) =
-      _$_Initialize;
+  const factory _Initialize(
+      BuildContext context, MeModel meModel, String token) = _$_Initialize;
 
   @override
   BuildContext get context;
   MeModel get meModel;
+  String get token;
   @override
   @JsonKey(ignore: true)
   _$InitializeCopyWith<_Initialize> get copyWith =>
@@ -797,12 +828,14 @@ class _$AuthenticationStateTearOff {
 
   _AuthenticationState call(
       {required MeModel? meModel,
+      required String? token,
       required bool isLoading,
       required bool isAuthenticated,
       required Option<Either<ResponseError, AuthenticationModel>>
           optionFailureOrSuccess}) {
     return _AuthenticationState(
       meModel: meModel,
+      token: token,
       isLoading: isLoading,
       isAuthenticated: isAuthenticated,
       optionFailureOrSuccess: optionFailureOrSuccess,
@@ -816,6 +849,7 @@ const $AuthenticationState = _$AuthenticationStateTearOff();
 /// @nodoc
 mixin _$AuthenticationState {
   MeModel? get meModel => throw _privateConstructorUsedError;
+  String? get token => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isAuthenticated => throw _privateConstructorUsedError;
   Option<Either<ResponseError, AuthenticationModel>>
@@ -833,6 +867,7 @@ abstract class $AuthenticationStateCopyWith<$Res> {
       _$AuthenticationStateCopyWithImpl<$Res>;
   $Res call(
       {MeModel? meModel,
+      String? token,
       bool isLoading,
       bool isAuthenticated,
       Option<Either<ResponseError, AuthenticationModel>>
@@ -853,6 +888,7 @@ class _$AuthenticationStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? meModel = freezed,
+    Object? token = freezed,
     Object? isLoading = freezed,
     Object? isAuthenticated = freezed,
     Object? optionFailureOrSuccess = freezed,
@@ -862,6 +898,10 @@ class _$AuthenticationStateCopyWithImpl<$Res>
           ? _value.meModel
           : meModel // ignore: cast_nullable_to_non_nullable
               as MeModel?,
+      token: token == freezed
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String?,
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -898,6 +938,7 @@ abstract class _$AuthenticationStateCopyWith<$Res>
   @override
   $Res call(
       {MeModel? meModel,
+      String? token,
       bool isLoading,
       bool isAuthenticated,
       Option<Either<ResponseError, AuthenticationModel>>
@@ -921,6 +962,7 @@ class __$AuthenticationStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? meModel = freezed,
+    Object? token = freezed,
     Object? isLoading = freezed,
     Object? isAuthenticated = freezed,
     Object? optionFailureOrSuccess = freezed,
@@ -930,6 +972,10 @@ class __$AuthenticationStateCopyWithImpl<$Res>
           ? _value.meModel
           : meModel // ignore: cast_nullable_to_non_nullable
               as MeModel?,
+      token: token == freezed
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String?,
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -951,12 +997,15 @@ class __$AuthenticationStateCopyWithImpl<$Res>
 class _$_AuthenticationState implements _AuthenticationState {
   const _$_AuthenticationState(
       {required this.meModel,
+      required this.token,
       required this.isLoading,
       required this.isAuthenticated,
       required this.optionFailureOrSuccess});
 
   @override
   final MeModel? meModel;
+  @override
+  final String? token;
   @override
   final bool isLoading;
   @override
@@ -967,7 +1016,7 @@ class _$_AuthenticationState implements _AuthenticationState {
 
   @override
   String toString() {
-    return 'AuthenticationState(meModel: $meModel, isLoading: $isLoading, isAuthenticated: $isAuthenticated, optionFailureOrSuccess: $optionFailureOrSuccess)';
+    return 'AuthenticationState(meModel: $meModel, token: $token, isLoading: $isLoading, isAuthenticated: $isAuthenticated, optionFailureOrSuccess: $optionFailureOrSuccess)';
   }
 
   @override
@@ -976,6 +1025,7 @@ class _$_AuthenticationState implements _AuthenticationState {
         (other.runtimeType == runtimeType &&
             other is _AuthenticationState &&
             const DeepCollectionEquality().equals(other.meModel, meModel) &&
+            const DeepCollectionEquality().equals(other.token, token) &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
             const DeepCollectionEquality()
                 .equals(other.isAuthenticated, isAuthenticated) &&
@@ -987,6 +1037,7 @@ class _$_AuthenticationState implements _AuthenticationState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(meModel),
+      const DeepCollectionEquality().hash(token),
       const DeepCollectionEquality().hash(isLoading),
       const DeepCollectionEquality().hash(isAuthenticated),
       const DeepCollectionEquality().hash(optionFailureOrSuccess));
@@ -1001,6 +1052,7 @@ class _$_AuthenticationState implements _AuthenticationState {
 abstract class _AuthenticationState implements AuthenticationState {
   const factory _AuthenticationState(
       {required MeModel? meModel,
+      required String? token,
       required bool isLoading,
       required bool isAuthenticated,
       required Option<Either<ResponseError, AuthenticationModel>>
@@ -1008,6 +1060,8 @@ abstract class _AuthenticationState implements AuthenticationState {
 
   @override
   MeModel? get meModel;
+  @override
+  String? get token;
   @override
   bool get isLoading;
   @override
