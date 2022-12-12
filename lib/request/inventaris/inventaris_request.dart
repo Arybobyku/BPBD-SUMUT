@@ -48,6 +48,7 @@ class InvetarisRequestBase extends InventarisRequest {
         return right(_base.data);
       } else {
         debugPrint(response.bodyString.toString());
+
         return left(ResponseError.serverError(
             message: parsedError(response.bodyString)));
       }

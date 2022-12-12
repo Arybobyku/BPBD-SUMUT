@@ -72,6 +72,8 @@ dependencies:
   geocoding: ^2.0.4
   permission_handler: ^10.2.0
   cached_network_image:
+  connectivity_plus:
+
 
 dev_dependencies:
   flutter_test:

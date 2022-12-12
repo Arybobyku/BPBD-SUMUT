@@ -2,8 +2,9 @@ import 'dart:typed_data';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:bpbd/database/interface/i_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
+import '../interface/i_storage.dart';
 
 class StorageImpl<T> implements IStorage<T> {
   Box<T>? _box;

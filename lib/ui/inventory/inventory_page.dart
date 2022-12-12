@@ -2,8 +2,6 @@ import 'package:bpbd/bloc/auth/authentication/authentication_bloc.dart';
 import 'package:bpbd/bloc/inventaris/inventaris_bloc.dart';
 import 'package:bpbd/helper/color_pallete.dart';
 import 'package:bpbd/injection.dart';
-import 'package:bpbd/locatore_storage_service.dart';
-import 'package:bpbd/setup_locator.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,38 +17,41 @@ class InventoryPage extends StatefulWidget {
 
 class _InventoryPageState extends State<InventoryPage> {
   // var token = context.read<AuthenticationBloc>().state.token;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorPalette.generalBackgroundColor,
-      body: MultiBlocProvider(
-        providers: [
-          BlocProvider<InventarisBloc>(
-            create: (context) => getIt<InventarisBloc>()
-              ..add(InventarisEvent.watchAll(context, context.read<AuthenticationBloc>().state.meModel!.idKota!)),
-          )
-        ],
-        child: BlocBuilder<InventarisBloc, InventarisState>(
-          builder: (context, state) {
-            return SafeArea(
-              child: state.maybeWhen(
-                loading: ()=>const Center(child: CircularProgressIndicator(),),
-                error: (error)=>Text(error),
-                loaded:(invetarisList, optionFailureOrDiseases) =>
-                    SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      const CustomHeader(),
-                      const SizedBox(height: 20),
-                      ListView.builder(
+      body: BlocBuilder<InventarisBloc, InventarisState>(
+        builder: (context, state) {
+          return SafeArea(
+            child: Column(
+              children: [
+                const CustomHeader(),
+                Expanded(
+                  child: state.maybeWhen(
+                    loading: () => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    error: (error) => Center(child: Text(error)),
+                    loaded: (invetarisList, optionFailureOrDiseases) =>
+                        RefreshIndicator(
+                      onRefresh: () async{
+                        context.read<InventarisBloc>().add(
+                          InventarisEvent.watchAll(
+                            context,
+                            context.read<AuthenticationBloc>().state.meModel!.idKota!,
+                          ),
+                        );
+                      },
+                      child: ListView.builder(
                           itemCount: invetarisList.length,
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
                           itemBuilder: (context, index) {
                             var inventaris = invetarisList[index];
                             return Container(
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
                               padding: const EdgeInsets.all(10),
                               decoration: const BoxDecoration(
                                   color: Colors.white,
@@ -60,7 +61,7 @@ class _InventoryPageState extends State<InventoryPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   CachedNetworkImage(
-                                    imageUrl:inventaris.foto??"",
+                                    imageUrl: inventaris.foto ?? "",
                                     height: 200,
                                     width: double.infinity,
                                     imageBuilder: (context, imageProvider) =>
@@ -91,16 +92,16 @@ class _InventoryPageState extends State<InventoryPage> {
                               ),
                             );
                           }),
-                    ],
+                    ),
+                    orElse: () => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   ),
                 ),
-                orElse: () => const Center(
-                  child: CircularProgressIndicator(),
-                ),
-              ),
-            );
-          },
-        ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

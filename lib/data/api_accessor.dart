@@ -42,35 +42,6 @@ abstract class ApiAccessor extends ChopperService {
   Future<Response> getAllInventaris(
       @Query("id_kota") query);
 
-  @Get(path: "/api/case", headers: {
-    Constants.headerContentTypeText: Constants.headerApplicationJsonValue,
-    Constants.headerAcceptText: Constants.headerApplicationJsonValue
-  })
-  Future<Response> getListCase();
-
-  @Get(path: "/api/casePivot", headers: {
-    Constants.headerContentTypeText: Constants.headerApplicationJsonValue,
-    Constants.headerAcceptText: Constants.headerApplicationJsonValue
-  })
-  Future<Response> getAllCase();
-
-  @Get(path: "/api/sympthon", headers: {
-    Constants.headerContentTypeText: Constants.headerApplicationJsonValue,
-    Constants.headerAcceptText: Constants.headerApplicationJsonValue
-  })
-  Future<Response> getListSymptom();
-
-  @Get(path: "/api/disease", headers: {
-    Constants.headerContentTypeText: Constants.headerApplicationJsonValue,
-    Constants.headerAcceptText: Constants.headerApplicationJsonValue
-  })
-  Future<Response> getListDisease();
-
-  @Get(path: "/api/solution", headers: {
-    Constants.headerContentTypeText: Constants.headerApplicationJsonValue,
-    Constants.headerAcceptText: Constants.headerApplicationJsonValue
-  })
-  Future<Response> getListSolution();
 
   static ApiAccessor create() {
     final client = ChopperClient(

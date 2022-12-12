@@ -1,7 +1,7 @@
 
-import 'package:bpbd/database/interface/i_local_user_repository.dart';
-import 'package:bpbd/database/interface/i_storage.dart';
-import 'package:bpbd/database/repositories/storage.dart';
+import 'package:bpbd/data/database/interface/i_local_user_repository.dart';
+import 'package:bpbd/data/database/interface/i_storage.dart';
+import 'package:bpbd/data/database/repositories/storage.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: ILocalUserRepository)

@@ -23,14 +23,22 @@ part 'inventaris_bloc.freezed.dart';
 class InventarisBloc extends Bloc<InventarisEvent, InventarisState> {
   final InventarisRequest inventarisRequest;
 
-  InventarisBloc(this.inventarisRequest) : super(InventarisState.initial()) {
+  InventarisBloc(this.inventarisRequest) : super(const InventarisState.initial()) {
     on<InventarisEvent>((event, emit) async {
       await event.map(watchAll: (e) async {
         emit(const InventarisState.loading());
         final failureOrSuccess =
-            await inventarisRequest.getList(e.context,e.idKota);
+            await inventarisRequest.getList(e.context, e.idKota);
         failureOrSuccess.match(
-          (l) => null,
+          (l) => l.map(
+            noInternet: (value) => emit(
+              const InventarisState.error("No Internet Connection"),
+            ),
+            empty: (value) => emit(const InventarisState.empty()),
+            serverError: (value) => emit(
+              InventarisState.error(value.message ?? "Something went wrong"),
+            ),
+          ),
           (r) => emit(
             InventarisState.loaded(
               invetarisList: r,
