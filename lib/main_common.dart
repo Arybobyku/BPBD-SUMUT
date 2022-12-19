@@ -20,8 +20,9 @@ Future<void> mainCommon() async {
   await setUp();
 
   setupLocator().then((value) {
-    Bloc.observer = getIt<SimpleBlocObserver>();
-    runApp(getIt<MyApp>());
+    runApp(MyApp());
+    // Bloc.observer = getIt<SimpleBlocObserver>();
+    // runApp(getIt<MyApp>());
   });
 }
 

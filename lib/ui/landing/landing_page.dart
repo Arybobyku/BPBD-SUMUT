@@ -1,5 +1,7 @@
 import 'package:bpbd/bloc/auth/authentication/authentication_bloc.dart';
 import 'package:bpbd/bloc/inventaris/inventaris_bloc.dart';
+import 'package:bpbd/bloc/logistik/logistik_bloc.dart';
+import 'package:bpbd/bloc/peralatan/peralatan_bloc.dart';
 import 'package:bpbd/helper/color_pallete.dart';
 import 'package:bpbd/bloc/landing/landing_bloc.dart';
 import 'package:bpbd/injection.dart';
@@ -23,8 +25,20 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   void initState() {
-    context.read<InventarisBloc>().add(
-      InventarisEvent.watchAll(
+    // context.read<InventarisBloc>().add(
+    //   InventarisEvent.watchAll(
+    //     context,
+    //     context.read<AuthenticationBloc>().state.meModel!.idKota!,
+    //   ),
+    // );
+    context.read<LogistikBloc>().add(
+      LogistikEvent.watchAll(
+        context,
+        context.read<AuthenticationBloc>().state.meModel!.idKota!,
+      ),
+    );
+    context.read<PeralatanBloc>().add(
+      PeralatanEvent.watchAll(
         context,
         context.read<AuthenticationBloc>().state.meModel!.idKota!,
       ),
@@ -34,9 +48,9 @@ class _LandingPageState extends State<LandingPage> {
 
   static final List<Widget> _pagepOption = <Widget>[
     const HomePage(),
-    const ReportPage(),
-    const InventoryPage(),
-    const ProfilePage(),
+    // const ReportPage(),
+    // const InventoryPage(),
+    // const ProfilePage(),
   ];
 
   @override
@@ -49,40 +63,40 @@ class _LandingPageState extends State<LandingPage> {
             fit: StackFit.expand,
             children: [_pagepOption[state.index]],
           ),
-          bottomNavigationBar: Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
-              ),
-            ),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(30.0),
-                topRight: Radius.circular(30.0),
-              ),
-              child: BottomNavigationBar(
-                backgroundColor: ColorPalette.generalSecondaryColor,
-                type: BottomNavigationBarType.fixed,
-                currentIndex: state.index,
-                selectedItemColor: Colors.white,
-                unselectedItemColor: ColorPalette.generalGrey,
-                showUnselectedLabels: false,
-                onTap: (val) => context.read<LandingBloc>()
-                  ..add(LandingEvent.onChange(val)),
-                items: const [
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.home), label: "Beranda"),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.warning_amber), label: "Berita"),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.inventory), label: "Inventory"),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.person), label: "Account"),
-                ],
-              ),
-            ),
-          ),
+          // bottomNavigationBar: Container(
+          //   decoration: const BoxDecoration(
+          //     borderRadius: BorderRadius.only(
+          //       topLeft: Radius.circular(30),
+          //       topRight: Radius.circular(30),
+          //     ),
+          //   ),
+          //   child: ClipRRect(
+          //     borderRadius: const BorderRadius.only(
+          //       topLeft: Radius.circular(30.0),
+          //       topRight: Radius.circular(30.0),
+          //     ),
+          //     child: BottomNavigationBar(
+          //       backgroundColor: ColorPalette.generalSecondaryColor,
+          //       type: BottomNavigationBarType.fixed,
+          //       currentIndex: state.index,
+          //       selectedItemColor: Colors.white,
+          //       unselectedItemColor: ColorPalette.generalGrey,
+          //       showUnselectedLabels: false,
+          //       onTap: (val) => context.read<LandingBloc>()
+          //         ..add(LandingEvent.onChange(val)),
+          //       items: const [
+          //         BottomNavigationBarItem(
+          //             icon: Icon(Icons.home), label: "Beranda"),
+          //         BottomNavigationBarItem(
+          //             icon: Icon(Icons.warning_amber), label: "Berita"),
+          //         BottomNavigationBarItem(
+          //             icon: Icon(Icons.inventory), label: "Inventory"),
+          //         BottomNavigationBarItem(
+          //             icon: Icon(Icons.person), label: "Account"),
+          //       ],
+          //     ),
+          //   ),
+          // ),
         );
       },
     );

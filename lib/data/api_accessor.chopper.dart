@@ -106,4 +106,42 @@ class _$ApiAccessor extends ApiAccessor {
     );
     return client.send<dynamic, dynamic>($request);
   }
+
+  @override
+  Future<Response<dynamic>> getAllPeralatan(dynamic query) {
+    final $url = '/api/peralatan';
+    final $params = <String, dynamic>{'id_kota': query};
+    final $headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    final $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+      headers: $headers,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> getAllLogistiks(dynamic query) {
+    final $url = '/api/logistiks';
+    final $params = <String, dynamic>{'id_kota': query};
+    final $headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    final $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+      headers: $headers,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
 }

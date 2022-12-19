@@ -23,7 +23,7 @@ class CustomCaraousel extends StatelessWidget {
               alignment: Alignment.center,
               child: CachedNetworkImage(
                 imageUrl:
-                "https://testappsmobile.site/storage/app/banner.png",
+                "https://testappsmobile.site/assets/banner_mobile.png",
                 height: 200,
                 width: double.infinity,
                 imageBuilder: (context, imageProvider) => Container(

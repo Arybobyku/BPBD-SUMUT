@@ -50,14 +50,17 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Column(
                 children: [
                   const CustomProfileCard(  ),
-                  ButtonRounded(
-                    text: "logout",
-                    invert: true,
-                    onPressed: () {
-                      context
-                          .read<AuthenticationBloc>()
-                          .add(AuthenticationEvent.logout(context));
-                    },
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: ButtonRounded(
+                      text: "logout",
+                      invert: true,
+                      onPressed: () {
+                        context
+                            .read<AuthenticationBloc>()
+                            .add(AuthenticationEvent.logout(context));
+                      },
+                    ),
                   )
                 ],
               ),

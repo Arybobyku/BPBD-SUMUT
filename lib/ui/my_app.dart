@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:bpbd/bloc/auth/authentication/authentication_bloc.dart';
 import 'package:bpbd/bloc/landing/landing_bloc.dart';
+import 'package:bpbd/bloc/logistik/logistik_bloc.dart';
+import 'package:bpbd/bloc/peralatan/peralatan_bloc.dart';
 import 'package:bpbd/data/api_accessor.dart';
 import 'package:bpbd/helper/color_pallete.dart';
 import 'package:bpbd/injection.dart';
@@ -62,7 +64,13 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider<InventarisBloc>(
           create: (context) => getIt<InventarisBloc>(),
-        )
+        ),
+        BlocProvider<LogistikBloc>(
+          create: (context) => getIt<LogistikBloc>(),
+        ),
+        BlocProvider<PeralatanBloc>(
+          create: (context) => getIt<PeralatanBloc>(),
+        ),
       ],
       child: GetMaterialApp(
         navigatorKey: Get.key,
@@ -86,6 +94,7 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
+
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initConnectivity() async {
     late ConnectivityResult result;
@@ -107,11 +116,7 @@ class _MyAppState extends State<MyApp> {
     return _updateConnectionStatus(result);
   }
 
-
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
-    if(result==ConnectivityResult.none){
-
-    }
+    if (result == ConnectivityResult.none) {}
   }
 }
-

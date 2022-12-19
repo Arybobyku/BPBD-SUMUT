@@ -12,6 +12,7 @@ class ColorPalette {
 
   static const Color generalDarkGrey = Color(0xFF838383);
   static const Color generalPurple = Color(0xFFC58BF2);
+  static const Color generalIndigo = Color(0xFF069697);
   static const Color generalBackgroundColor = Color(0xFFF6F8FD);
   static const Color generalPrimaryColor = Color(0xFFFF6501);
   static const Color generalSecondaryColor = Color(0xFF5D5FEF);
@@ -19,6 +20,7 @@ class ColorPalette {
   static const Color generalRed = Color(0xFFf93943);
 
   static const Color generalSoftGreen = Color(0xFFDBFFDB);
+  static const Color generalSoftIndigo = Color(0xFFF0FAFA);
   static const Color generalSoftOrange = Color(0xFFFFE4C8);
   static const Color generalSoftRed = Color(0xFFFFDBDB);
   static const Color generalSoftYellow = Color(0xFFFFFFDB);
