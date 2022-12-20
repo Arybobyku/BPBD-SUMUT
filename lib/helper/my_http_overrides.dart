@@ -1,5 +1,8 @@
 import 'dart:io';
 
+import 'package:bpbd/routes.dart';
+import 'package:get/get.dart';
+
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
@@ -7,4 +10,10 @@ class MyHttpOverrides extends HttpOverrides {
       ..badCertificateCallback =
           (X509Certificate cert, String host, int port) => true;
   }
+}
+
+
+backToNavigator(){
+
+  Get.offAllNamed(Routes.navigator);
 }

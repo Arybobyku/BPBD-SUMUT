@@ -1,7 +1,12 @@
 import 'package:bpbd/data/inteceptor.dart';
+import 'package:bpbd/routes.dart';
+import 'package:bpbd/setup_locator.dart';
 import 'package:chopper/chopper.dart';
 import 'package:bpbd/data/constants/constants.dart';
 import 'package:injectable/injectable.dart';
+
+import '../helper/my_http_overrides.dart';
+import '../locatore_storage_service.dart';
 
 part 'api_accessor.chopper.dart';
 
@@ -88,6 +93,12 @@ abstract class ApiAccessor extends ChopperService {
       (Response response) async {
         if (response.statusCode == 404) {
           chopperLogger.severe('404 NOT FOUND');
+        }
+        if (response.statusCode == 401) {
+          chopperLogger.severe('401 NOT FOUND');
+          var storageService = locator<LocalStorageService>();
+          storageService.clearPref();
+          backToNavigator();
         }
         return response;
       },
