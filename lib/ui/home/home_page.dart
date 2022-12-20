@@ -1,4 +1,5 @@
 import 'package:bpbd/bloc/auth/authentication/authentication_bloc.dart';
+import 'package:bpbd/bloc/banner/banner_bloc.dart';
 import 'package:bpbd/bloc/logistik/logistik_bloc.dart';
 import 'package:bpbd/bloc/peralatan/peralatan_bloc.dart';
 import 'package:bpbd/helper/color_pallete.dart';
@@ -21,17 +22,24 @@ class HomePage extends StatelessWidget {
       body: RefreshIndicator(
         onRefresh: () async {
           context.read<LogistikBloc>().add(
-            LogistikEvent.watchAll(
-              context,
-              context.read<AuthenticationBloc>().state.meModel!.idKota!,
-            ),
-          );
+                LogistikEvent.watchAll(
+                  context,
+                  context.read<AuthenticationBloc>().state.meModel!.idKota!,
+                ),
+              );
           context.read<PeralatanBloc>().add(
-            PeralatanEvent.watchAll(
-              context,
-              context.read<AuthenticationBloc>().state.meModel!.idKota!,
-            ),
-          );
+                PeralatanEvent.watchAll(
+                  context,
+                  context.read<AuthenticationBloc>().state.meModel!.idKota!,
+                ),
+              );
+
+          context.read<BannerBloc>().add(
+                BannerEvent.watchAll(
+                  context,
+                  context.read<AuthenticationBloc>().state.meModel!.idKota!,
+                ),
+              );
         },
         child: ListView(
           children: const [
@@ -43,6 +51,8 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 20),
             InventarisHomeWIdget(),
             SizedBox(height: 20),
+            // PermintaanHomeWIdget(),
+            // SizedBox(height: 20),
           ],
         ),
       ),
@@ -60,14 +70,15 @@ class HomeMenuWidget extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 20),
       alignment: Alignment.center,
       decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(15))),
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(15)),
+      ),
       child: GridView(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
-          childAspectRatio: 6 / 4,
+          childAspectRatio: 1.5,
         ),
         children: [
           MenuWidget(
@@ -118,21 +129,28 @@ class MenuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(
-            pathAsset,
-            height: 35,
-            width: 35,
+          Flexible(
+            child: Image.asset(
+              pathAsset,
+              height: 35,
+              width: 35,
+            ),
           ),
           const SizedBox(height: 5),
-          Text(
-            name,
-            style: const TextStyle(
-              fontSize: 12,
-              color: ColorPalette.generalSecondaryColor,
+          Flexible(
+            child: Text(
+              name,
+              style: const TextStyle(
+                fontSize: 12,
+                color: ColorPalette.generalSecondaryColor,
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
             ),
           )
         ],
@@ -171,7 +189,9 @@ class InventarisHomeWIdget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
-                      Text("Peralatan", style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                      Text("Peralatan",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold)),
                       Text("jumlah peralatan", style: TextStyle(fontSize: 12)),
                     ],
                   ),
@@ -225,7 +245,144 @@ class InventarisHomeWIdget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
-                      Text("Logistik", style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                      Text("Logistik",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold)),
+                      Text("Jumlah Logistik", style: TextStyle(fontSize: 12)),
+                    ],
+                  ),
+                ),
+                BlocBuilder<LogistikBloc, LogistikState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                        loaded: (logistik, failureOrSuccess) => Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
+                                color: ColorPalette.generalSoftGreen,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    logistik.length.toString(),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: ColorPalette.generalIndigo,
+                                    ),
+                                  ),
+                                  const Text(
+                                    "Item",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: ColorPalette.generalIndigo,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                        orElse: () => const CircularProgressIndicator());
+                  },
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class PermintaanHomeWIdget extends StatelessWidget {
+  const PermintaanHomeWIdget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Permintaan",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Container(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              color: Colors.white,
+            ),
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text("Peralatan",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold)),
+                      Text("jumlah peralatan", style: TextStyle(fontSize: 12)),
+                    ],
+                  ),
+                ),
+                BlocBuilder<PeralatanBloc, PeralatanState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      loaded: (peralatan, failureOrSuccees) => Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: const BoxDecoration(
+                          color: ColorPalette.generalSoftRed,
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child: Column(
+                          children: [
+                            Text(
+                              peralatan.length.toString(),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: ColorPalette.generalRed,
+                              ),
+                            ),
+                            const Text(
+                              "Item",
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: ColorPalette.generalRed,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      orElse: () => const CircularProgressIndicator(),
+                    );
+                  },
+                )
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
+          Container(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              color: Colors.white,
+            ),
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text("Logistik",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold)),
                       Text("Jumlah Logistik", style: TextStyle(fontSize: 12)),
                     ],
                   ),

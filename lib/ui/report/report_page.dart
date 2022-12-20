@@ -1,5 +1,6 @@
 import 'package:bpbd/data/model/key_value/key_value.dart';
 import 'package:bpbd/helper/seeder.dart';
+import 'package:bpbd/ui/core/customButton/button_rounded.dart';
 import 'package:bpbd/ui/core/customFormField/custom_form_field.dart';
 import 'package:bpbd/ui/core/custom_dropdown/custom_dropdown.dart';
 import 'package:bpbd/ui/core/cutom_header/custom_header.dart';
@@ -37,7 +38,7 @@ class _ReportPageState extends State<ReportPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children:  [
                     const Text(
-                      "Laporan Bencana Alam",
+                      "Permintaan",
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -105,6 +106,23 @@ class _ReportPageState extends State<ReportPage> {
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 10),
+                    InputFieldRounded(
+                      hint: "Nama",
+                      label: "Nama",
+                      onChange: (val) {
+                      },
+                      secureText: false,
+                    ),
+                    const SizedBox(height: 10),
+                    InputFieldRounded(
+                      hint: "Jumlah",
+                      label: "Jumlah",
+                      onChange: (val) {
+                      },
+                      secureText: false,
+                    ),
+
+                    const ButtonRounded(text: "Kirim"),
                   ],
                 ),
               ),

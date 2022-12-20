@@ -61,6 +61,12 @@ abstract class ApiAccessor extends ChopperService {
   Future<Response> getAllLogistiks(
       @Query("id_kota") query);
 
+  @Get(path: "/api/banner", headers: {
+    Constants.headerContentTypeText: Constants.headerApplicationJsonValue,
+    Constants.headerAcceptText: Constants.headerApplicationJsonValue
+  })
+  Future<Response> getAllBanner();
+
 
   static ApiAccessor create() {
     final client = ChopperClient(

@@ -1,4 +1,5 @@
 import 'package:bpbd/bloc/auth/authentication/authentication_bloc.dart';
+import 'package:bpbd/bloc/banner/banner_bloc.dart';
 import 'package:bpbd/bloc/inventaris/inventaris_bloc.dart';
 import 'package:bpbd/bloc/logistik/logistik_bloc.dart';
 import 'package:bpbd/bloc/peralatan/peralatan_bloc.dart';
@@ -39,6 +40,12 @@ class _LandingPageState extends State<LandingPage> {
     );
     context.read<PeralatanBloc>().add(
       PeralatanEvent.watchAll(
+        context,
+        context.read<AuthenticationBloc>().state.meModel!.idKota!,
+      ),
+    );
+    context.read<BannerBloc>().add(
+      BannerEvent.watchAll(
         context,
         context.read<AuthenticationBloc>().state.meModel!.idKota!,
       ),

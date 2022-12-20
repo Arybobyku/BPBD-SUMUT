@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:bpbd/data/api_accessor.dart';
 import 'package:bpbd/data/core/base_response.dart';
-import 'package:bpbd/data/model/inventaris/inventaris_model.dart';
+import 'package:bpbd/data/model/banner/banner_model.dart';
 import 'package:bpbd/data/model/responseError/response_error.dart';
 import 'package:bpbd/request/core/global_helper_request.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
@@ -11,20 +11,17 @@ import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 import 'package:provider/provider.dart';
 
-abstract class InventarisRequest {
-  Future<Either<ResponseError, IList<InventarisModel>>> getList(
-    BuildContext context,
-    int idKota,
-  );
+abstract class BannerRequest {
+  Future<Either<ResponseError, IList<BannerModel>>> getList(BuildContext context);
 }
 
-@LazySingleton(as: InventarisRequest)
-class InvetarisRequestBase extends InventarisRequest {
+@LazySingleton(as: BannerRequest)
+class BannerRequestBase implements BannerRequest {
   @override
-  Future<Either<ResponseError, IList<InventarisModel>>> getList(
-      BuildContext context, int idKota) async {
+  Future<Either<ResponseError, IList<BannerModel>>> getList(BuildContext context)async {
+
     final response = await Provider.of<ApiAccessor>(context, listen: false)
-        .getAllInventaris(idKota);
+        .getAllBanner();
 
     try {
       if (response.isSuccessful) {
@@ -35,12 +32,15 @@ class InvetarisRequestBase extends InventarisRequest {
 
         final _base = BaseResponse.fromJson(
           responseDecode,
-          (data) => IList<InventarisModel>.fromJson(
+              (data) => IList<BannerModel>.fromJson(
             data,
-            (val) => InventarisModel.fromJson(val as Map<String, dynamic>),
+                (val) => BannerModel.fromJson(val as Map<String, dynamic>),
           ),
         );
 
+        // if(_base.data.isEmpty){
+        //   return left(const ResponseError.empty());
+        // }
         return right(_base.data);
       } else {
         debugPrint(response.bodyString.toString());

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bpbd/bloc/auth/authentication/authentication_bloc.dart';
+import 'package:bpbd/bloc/banner/banner_bloc.dart';
 import 'package:bpbd/bloc/landing/landing_bloc.dart';
 import 'package:bpbd/bloc/logistik/logistik_bloc.dart';
 import 'package:bpbd/bloc/peralatan/peralatan_bloc.dart';
@@ -70,6 +71,9 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider<PeralatanBloc>(
           create: (context) => getIt<PeralatanBloc>(),
+        ),
+        BlocProvider<BannerBloc>(
+          create: (context) => getIt<BannerBloc>(),
         ),
       ],
       child: GetMaterialApp(
