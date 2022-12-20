@@ -1,6 +1,7 @@
 import 'package:bpbd/bloc/auth/authentication/authentication_bloc.dart';
 import 'package:bpbd/data/model/logistik/logistik.dart';
 import 'package:bpbd/helper/color_pallete.dart';
+import 'package:bpbd/ui/core/empty/empty_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,6 +32,7 @@ class _LogistikPageState extends State<LogistikPage> {
                     loading: () => const Center(
                       child: CircularProgressIndicator(),
                     ),
+                    empty: () => Text("Data Kosong"),
                     error: (error) => Center(child: Text(error)),
                     loaded: (invetarisList, optionFailureOrDiseases) =>
                         RefreshIndicator(
@@ -46,53 +48,64 @@ class _LogistikPageState extends State<LogistikPage> {
                               ),
                             );
                       },
-                      child: ListView.builder(
-                          itemCount: invetarisList.length,
-                          itemBuilder: (context, index) {
-                            var inventaris = invetarisList[index];
-                            return Container(
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10),
-                              padding: const EdgeInsets.all(10),
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20))),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  CachedNetworkImage(
-                                    imageUrl: inventaris.foto ?? "",
-                                    height: 200,
-                                    width: double.infinity,
-                                    imageBuilder: (context, imageProvider) =>
-                                        Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(20)),
-                                        image: DecorationImage(
-                                            image: imageProvider,
-                                            fit: BoxFit.fill),
+                      child: invetarisList.isEmpty
+                          ? ListView(
+                              children: const [
+                                EmptyWidget(
+                                  message: "Data Logistik Kosong",
+                                ),
+                              ],
+                            )
+                          : ListView.builder(
+                              itemCount: invetarisList.length,
+                              itemBuilder: (context, index) {
+                                var inventaris = invetarisList[index];
+                                return Container(
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20))),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      CachedNetworkImage(
+                                        imageUrl: inventaris.foto ?? "",
+                                        height: 200,
+                                        width: double.infinity,
+                                        imageBuilder:
+                                            (context, imageProvider) =>
+                                                Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(20)),
+                                            image: DecorationImage(
+                                                image: imageProvider,
+                                                fit: BoxFit.fill),
+                                          ),
+                                        ),
                                       ),
-                                    ),
+                                      const SizedBox(height: 10),
+                                      Text(
+                                        inventaris.nama ?? "-",
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20),
+                                      ),
+                                      const SizedBox(height: 5),
+                                      Text(
+                                        "${inventaris.jumlah ?? "-"} Barang",
+                                        style: const TextStyle(fontSize: 16),
+                                      ),
+                                    ],
                                   ),
-                                  const SizedBox(height: 10),
-                                  Text(
-                                    inventaris.nama ?? "-",
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20),
-                                  ),
-                                  const SizedBox(height: 5),
-                                  Text(
-                                    "${inventaris.jumlah ?? "-"} Barang",
-                                    style: const TextStyle(fontSize: 16),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }),
+                                );
+                              }),
                     ),
                     orElse: () => const Center(
                       child: CircularProgressIndicator(),

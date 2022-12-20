@@ -6,6 +6,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../core/empty/empty_widget.dart';
+
 class PeralatanPage extends StatefulWidget {
   const PeralatanPage({Key? key}) : super(key: key);
 
@@ -32,15 +34,27 @@ class _PeralatanPageState extends State<PeralatanPage> {
                     error: (error) => Center(child: Text(error)),
                     loaded: (invetarisList, optionFailureOrDiseases) =>
                         RefreshIndicator(
-                          onRefresh: () async{
-                            context.read<PeralatanBloc>().add(
+                      onRefresh: () async {
+                        context.read<PeralatanBloc>().add(
                               PeralatanEvent.watchAll(
                                 context,
-                                context.read<AuthenticationBloc>().state.meModel!.idKota!,
+                                context
+                                    .read<AuthenticationBloc>()
+                                    .state
+                                    .meModel!
+                                    .idKota!,
                               ),
                             );
-                          },
-                          child: ListView.builder(
+                      },
+                      child: invetarisList.isEmpty
+                          ? ListView(
+                            children: const [
+                              EmptyWidget(
+                                message: "Data Peralatan Kosong",
+                              )
+                            ],
+                          )
+                          : ListView.builder(
                               itemCount: invetarisList.length,
                               itemBuilder: (context, index) {
                                 var inventaris = invetarisList[index];
@@ -50,26 +64,29 @@ class _PeralatanPageState extends State<PeralatanPage> {
                                   padding: const EdgeInsets.all(10),
                                   decoration: const BoxDecoration(
                                       color: Colors.white,
-                                      borderRadius:
-                                      BorderRadius.all(Radius.circular(20))),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20))),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       CachedNetworkImage(
                                         imageUrl: inventaris.foto ?? "",
                                         height: 200,
                                         width: double.infinity,
-                                        imageBuilder: (context, imageProvider) =>
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius: const BorderRadius.all(
+                                        imageBuilder:
+                                            (context, imageProvider) =>
+                                                Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                const BorderRadius.all(
                                                     Radius.circular(20)),
-                                                image: DecorationImage(
-                                                    image: imageProvider,
-                                                    fit: BoxFit.fill),
-                                              ),
-                                            ),
+                                            image: DecorationImage(
+                                                image: imageProvider,
+                                                fit: BoxFit.fill),
+                                          ),
+                                        ),
                                       ),
                                       const SizedBox(height: 10),
                                       Text(
@@ -87,7 +104,7 @@ class _PeralatanPageState extends State<PeralatanPage> {
                                   ),
                                 );
                               }),
-                        ),
+                    ),
                     orElse: () => const Center(
                       child: CircularProgressIndicator(),
                     ),

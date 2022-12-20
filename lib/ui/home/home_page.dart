@@ -87,7 +87,9 @@ class HomeMenuWidget extends StatelessWidget {
           MenuWidget(
             pathAsset: 'images/Edit.png',
             name: 'Permintaan',
-            onTap: () {},
+            onTap: () {
+              Get.toNamed(Routes.reportPage);
+            },
           ),
           MenuWidget(
             pathAsset: 'images/Profile.png',

@@ -41,6 +41,9 @@ class LogistikRequestBase implements LogistikRequest {
           ),
         );
 
+        // if(_base.data.isEmpty){
+        //   return left(const ResponseError.empty());
+        // }
         return right(_base.data);
       } else {
         debugPrint(response.bodyString.toString());
