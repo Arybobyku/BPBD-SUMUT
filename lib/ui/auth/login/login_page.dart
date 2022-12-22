@@ -106,6 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                                   label: "Email",
                                   onChange: (val) {
                                     meModel = meModel.copyWith(email: val);
+                                    setState((){});
                                   },
                                   secureText: false,
                                 ),
@@ -115,6 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                                   label: "Password",
                                   onChange: (val) {
                                     meModel = meModel.copyWith(password: val);
+                                    setState((){});
                                   },
                                   secureText: true,
                                 ),
@@ -128,6 +130,12 @@ class _LoginPageState extends State<LoginPage> {
                                 const SizedBox(height: 20),
                                 ButtonRounded(
                                   text: "Login",
+                                  disable: [
+                                    meModel.email == null,
+                                    meModel.email == '',
+                                    meModel.password == '',
+                                    meModel.password == null,
+                                  ],
                                   onPressed: () {
                                     context.read<AuthenticationBloc>().add(
                                           AuthenticationEvent.login(
@@ -199,5 +207,4 @@ class _LoginPageState extends State<LoginPage> {
       },
     );
   }
-
 }

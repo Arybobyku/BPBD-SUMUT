@@ -2,7 +2,6 @@ import 'package:bpbd/bloc/auth/authentication/authentication_bloc.dart';
 import 'package:bpbd/data/model/kota/kota_model.dart';
 import 'package:bpbd/data/model/me/me_model.dart';
 import 'package:bpbd/helper/color_pallete.dart';
-import 'package:bpbd/helper/seeder.dart';
 import 'package:bpbd/routes.dart';
 import 'package:bpbd/ui/core/customButton/button_rounded.dart';
 import 'package:bpbd/ui/core/customFormField/custom_form_field.dart';
@@ -13,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
+import '../../../bloc/kota/kota_bloc.dart';
+
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
 
@@ -22,7 +23,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   MeModel meModel = const MeModel();
-  KotaModel kota = listKota.first;
+  KotaModel? kota;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 );
               },
               (r) {
-                successSnackBar(context, "Berhasil mendaftar akun baru, harap hubungi admin untuk verifikasi akun");
+                successSnackBar(context,
+                    "Berhasil mendaftar akun baru, harap hubungi admin untuk verifikasi akun");
                 Get.offAllNamed(Routes.loginPage);
               },
             ),
@@ -127,20 +129,45 @@ class _RegisterPageState extends State<RegisterPage> {
                                   },
                                   secureText: false,
                                 ),
-                                DropdownContainer(
-                                  hint: "Kabupaten/Kota",
-                                  value: kota.namaKota,
-                                  onChanged: (val) {
-                                    kota = listKota.firstWhere(
-                                        (element) => element.namaKota == val);
-                                    meModel = meModel.copyWith(idKota: kota.id);
-                                    setState((){});
+                                BlocBuilder<KotaBloc, KotaState>(
+                                  builder: (context, state) {
+                                    return state.maybeWhen(
+                                      loaded: (listKota, failureOrSuccess) {
+                                        return DropdownContainer(
+                                          hint: "Kabupaten/Kota",
+                                          value:kota?.namaKota!=null? kota?.namaKota:listKota.first.namaKota,
+                                          onChanged: (val) {
+                                            kota = listKota.firstWhere(
+                                              (element) =>
+                                                  element.namaKota == val,
+                                            );
+
+                                            meModel = meModel.copyWith(
+                                              idKota: kota?.id,
+                                              kotaModel: kota
+                                            );
+                                            setState(() {});
+                                          },
+                                          items: listKota
+                                              .map((e) => e.namaKota)
+                                              .toList(),
+                                        );
+                                      },
+                                      orElse: () =>
+                                          const LoadingDropdownContainer(),
+                                    );
                                   },
-                                  items:
-                                      listKota.map((e) => e.namaKota).toList(),
                                 ),
                                 const SizedBox(height: 20),
                                 ButtonRounded(
+                                  disable: [
+                                    meModel.name == null,
+                                    meModel.email == null,
+                                    meModel.password == null,
+                                    meModel.nip == null,
+                                    meModel.noHp == null,
+                                    meModel.idKota == null,
+                                  ],
                                   text: "Register",
                                   onPressed: () {
                                     context.read<AuthenticationBloc>().add(

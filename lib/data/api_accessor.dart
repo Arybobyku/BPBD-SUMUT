@@ -44,22 +44,33 @@ abstract class ApiAccessor extends ChopperService {
     Constants.headerContentTypeText: Constants.headerApplicationJsonValue,
     Constants.headerAcceptText: Constants.headerApplicationJsonValue
   })
-  Future<Response> getAllInventaris(
-      @Query("id_kota") query);
+  Future<Response> getAllInventaris(@Query("id_kota") query);
 
   @Get(path: "/api/peralatan", headers: {
     Constants.headerContentTypeText: Constants.headerApplicationJsonValue,
     Constants.headerAcceptText: Constants.headerApplicationJsonValue
   })
-  Future<Response> getAllPeralatan(
-      @Query("id_kota") query);
+  Future<Response> getAllPeralatan(@Query("id_kota") query);
+
+  @Get(path: "/api/permintaan", headers: {
+    Constants.headerContentTypeText: Constants.headerApplicationJsonValue,
+    Constants.headerAcceptText: Constants.headerApplicationJsonValue
+  })
+  Future<Response> getPermintaan(@Query("id_user") query);
+
+  @Post(path: "/api/permintaan", headers: {
+    Constants.headerContentTypeText: Constants.headerApplicationJsonValue,
+    Constants.headerAcceptText: Constants.headerApplicationJsonValue
+  })
+  Future<Response> submitPermintaan(
+      @Body() String body,
+  );
 
   @Get(path: "/api/logistiks", headers: {
     Constants.headerContentTypeText: Constants.headerApplicationJsonValue,
     Constants.headerAcceptText: Constants.headerApplicationJsonValue
   })
-  Future<Response> getAllLogistiks(
-      @Query("id_kota") query);
+  Future<Response> getAllLogistiks(@Query("id_kota") query);
 
   @Get(path: "/api/banner", headers: {
     Constants.headerContentTypeText: Constants.headerApplicationJsonValue,
@@ -67,11 +78,14 @@ abstract class ApiAccessor extends ChopperService {
   })
   Future<Response> getAllBanner();
 
+  @Get(path: "/api/kota", headers: {
+    Constants.headerContentTypeText: Constants.headerApplicationJsonValue,
+    Constants.headerAcceptText: Constants.headerApplicationJsonValue
+  })
+  Future<Response> getAllKota();
 
   static ApiAccessor create() {
-    final client = ChopperClient(
-        baseUrl: Constants.apiBaseUrl,
-        services: [
+    final client = ChopperClient(baseUrl: Constants.apiBaseUrl, services: [
       _$ApiAccessor(),
     ], interceptors: [
       (Request request) async {
@@ -100,6 +114,7 @@ abstract class ApiAccessor extends ChopperService {
         if (response.statusCode == 404) {
           chopperLogger.severe('404 NOT FOUND');
         }
+
         if (response.statusCode == 401) {
           chopperLogger.severe('401 NOT FOUND');
           var storageService = locator<LocalStorageService>();
@@ -113,4 +128,3 @@ abstract class ApiAccessor extends ChopperService {
     return _$ApiAccessor(client);
   }
 }
-

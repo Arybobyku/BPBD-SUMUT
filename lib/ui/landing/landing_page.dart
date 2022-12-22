@@ -1,19 +1,13 @@
 import 'package:bpbd/bloc/auth/authentication/authentication_bloc.dart';
 import 'package:bpbd/bloc/banner/banner_bloc.dart';
-import 'package:bpbd/bloc/inventaris/inventaris_bloc.dart';
+import 'package:bpbd/bloc/landing/landing_bloc.dart';
 import 'package:bpbd/bloc/logistik/logistik_bloc.dart';
 import 'package:bpbd/bloc/peralatan/peralatan_bloc.dart';
-import 'package:bpbd/helper/color_pallete.dart';
-import 'package:bpbd/bloc/landing/landing_bloc.dart';
-import 'package:bpbd/injection.dart';
+import 'package:bpbd/bloc/permintaan/permintaan_bloc.dart';
 import 'package:bpbd/ui/home/home_page.dart';
-import 'package:bpbd/ui/inventory/inventory_page.dart';
-import 'package:bpbd/ui/report/report_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-
-import '../profile/profile_page.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -23,7 +17,6 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-
   @override
   void initState() {
     // context.read<InventarisBloc>().add(
@@ -33,23 +26,30 @@ class _LandingPageState extends State<LandingPage> {
     //   ),
     // );
     context.read<LogistikBloc>().add(
-      LogistikEvent.watchAll(
-        context,
-        context.read<AuthenticationBloc>().state.meModel!.idKota!,
-      ),
-    );
+          LogistikEvent.watchAll(
+            context,
+            context.read<AuthenticationBloc>().state.meModel!.idKota!,
+          ),
+        );
     context.read<PeralatanBloc>().add(
-      PeralatanEvent.watchAll(
-        context,
-        context.read<AuthenticationBloc>().state.meModel!.idKota!,
-      ),
-    );
+          PeralatanEvent.watchAll(
+            context,
+            context.read<AuthenticationBloc>().state.meModel!.idKota!,
+          ),
+        );
     context.read<BannerBloc>().add(
-      BannerEvent.watchAll(
-        context,
-        context.read<AuthenticationBloc>().state.meModel!.idKota!,
-      ),
-    );
+          BannerEvent.watchAll(
+            context,
+            context.read<AuthenticationBloc>().state.meModel!.idKota!,
+          ),
+        );
+
+    context.read<PermintaanBloc>().add(
+          PermintaanEvent.watchAll(
+            context,
+            context.read<AuthenticationBloc>().state.meModel!.id!,
+          ),
+        );
     super.initState();
   }
 

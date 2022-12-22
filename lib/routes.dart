@@ -7,6 +7,7 @@ import 'package:bpbd/ui/logistik/logistik_page.dart';
 import 'package:bpbd/ui/navigator/navigator_page.dart';
 import 'package:bpbd/ui/onBoarding/on_boarding_page.dart';
 import 'package:bpbd/ui/peralatan/peralatanPage.dart';
+import 'package:bpbd/ui/permintaan_detail/permintaan_detail_page.dart';
 import 'package:bpbd/ui/profile/profile_page.dart';
 import 'package:bpbd/ui/report/report_page.dart';
 import 'package:bpbd/ui/webview/web_view_page.dart';
@@ -28,6 +29,7 @@ class Routes {
   static const String peralatanPage = "/peralatanPage";
   static const String logistikPage = "/logistikPage";
   static const String reportPage = "/reportPage";
+  static const String permintaanDetail = "/permintaanDetail";
 
   static final newRoutes = <GetPage>[
     GetPage(name: navigator, page:(){return const NavigatorPage();}),
@@ -41,5 +43,7 @@ class Routes {
     GetPage(name: peralatanPage, page:(){return const PeralatanPage();}),
     GetPage(name: logistikPage, page:(){return const LogistikPage();}),
     GetPage(name: reportPage, page:(){return const ReportPage();}),
+    GetPage(name: reportPage, page:(){return const ReportPage();}),
+    GetPage(name: permintaanDetail, page:(){return const PermintaanDetailPage();}),
   ];
 }

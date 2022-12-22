@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:bpbd/bloc/auth/authentication/authentication_bloc.dart';
 import 'package:bpbd/bloc/banner/banner_bloc.dart';
+import 'package:bpbd/bloc/kota/kota_bloc.dart';
 import 'package:bpbd/bloc/landing/landing_bloc.dart';
 import 'package:bpbd/bloc/logistik/logistik_bloc.dart';
 import 'package:bpbd/bloc/peralatan/peralatan_bloc.dart';
+import 'package:bpbd/bloc/permintaan/permintaan_bloc.dart';
 import 'package:bpbd/data/api_accessor.dart';
 import 'package:bpbd/helper/color_pallete.dart';
 import 'package:bpbd/injection.dart';
@@ -74,6 +76,15 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider<BannerBloc>(
           create: (context) => getIt<BannerBloc>(),
+        ),
+        BlocProvider<PermintaanBloc>(
+          create: (context) => getIt<PermintaanBloc>(),
+        ),
+        BlocProvider<KotaBloc>(
+          create: (context) => getIt<KotaBloc>()
+            ..add(
+              KotaEvent.watchAll(context),
+            ),
         ),
       ],
       child: GetMaterialApp(

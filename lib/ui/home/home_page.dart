@@ -2,6 +2,7 @@ import 'package:bpbd/bloc/auth/authentication/authentication_bloc.dart';
 import 'package:bpbd/bloc/banner/banner_bloc.dart';
 import 'package:bpbd/bloc/logistik/logistik_bloc.dart';
 import 'package:bpbd/bloc/peralatan/peralatan_bloc.dart';
+import 'package:bpbd/bloc/permintaan/permintaan_bloc.dart';
 import 'package:bpbd/helper/color_pallete.dart';
 import 'package:bpbd/routes.dart';
 import 'package:bpbd/ui/core/custom_profile_card/custom_profile_card.dart';
@@ -17,6 +18,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(context.read<AuthenticationBloc>().state.token);
     return Scaffold(
       backgroundColor: ColorPalette.generalBackgroundColor,
       body: RefreshIndicator(
@@ -27,6 +29,7 @@ class HomePage extends StatelessWidget {
                   context.read<AuthenticationBloc>().state.meModel!.idKota!,
                 ),
               );
+
           context.read<PeralatanBloc>().add(
                 PeralatanEvent.watchAll(
                   context,
@@ -40,6 +43,13 @@ class HomePage extends StatelessWidget {
                   context.read<AuthenticationBloc>().state.meModel!.idKota!,
                 ),
               );
+
+          context.read<PermintaanBloc>().add(
+                PermintaanEvent.watchAll(
+                  context,
+                  context.read<AuthenticationBloc>().state.meModel!.id!,
+                ),
+              );
         },
         child: ListView(
           children: const [
@@ -51,8 +61,8 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 20),
             InventarisHomeWIdget(),
             SizedBox(height: 20),
-            // PermintaanHomeWIdget(),
-            // SizedBox(height: 20),
+            PermintaanHomeWIdget(),
+            SizedBox(height: 20),
           ],
         ),
       ),
@@ -199,30 +209,28 @@ class InventarisHomeWIdget extends StatelessWidget {
                 BlocBuilder<PeralatanBloc, PeralatanState>(
                   builder: (context, state) {
                     return state.maybeWhen(
-                      loaded: (peralatan, failureOrSuccees) => Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: const BoxDecoration(
-                          color: ColorPalette.generalSoftRed,
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
-                        child: Column(
-                          children: [
-                            Text(
-                              peralatan.length.toString(),
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: ColorPalette.generalRed,
+                      loaded: (peralatan, failureOrSuccees) => GestureDetector(
+                        onTap: () {
+                          Get.toNamed(Routes.peralatanPage);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: const BoxDecoration(
+                            color: ColorPalette.generalSoftRed,
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          child: Column(
+                            children: [
+                              Text(
+                                peralatan.length.toString(),
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: ColorPalette.generalRed,
+                                ),
                               ),
-                            ),
-                            const Text(
-                              "Item",
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: ColorPalette.generalRed,
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                       orElse: () => const CircularProgressIndicator(),
@@ -255,31 +263,29 @@ class InventarisHomeWIdget extends StatelessWidget {
                 BlocBuilder<LogistikBloc, LogistikState>(
                   builder: (context, state) {
                     return state.maybeWhen(
-                        loaded: (logistik, failureOrSuccess) => Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: const BoxDecoration(
-                                color: ColorPalette.generalSoftGreen,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                              ),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    logistik.length.toString(),
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                      color: ColorPalette.generalIndigo,
+                        loaded: (logistik, failureOrSuccess) => GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.logistikPage);
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: const BoxDecoration(
+                                  color: ColorPalette.generalSoftGreen,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      logistik.length.toString(),
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                        color: ColorPalette.generalIndigo,
+                                      ),
                                     ),
-                                  ),
-                                  const Text(
-                                    "Item",
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: ColorPalette.generalIndigo,
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                         orElse: () => const CircularProgressIndicator());
@@ -301,129 +307,67 @@ class PermintaanHomeWIdget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Permintaan",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
+      child: GestureDetector(
+        onTap: () => Get.toNamed(Routes.permintaanDetail),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Permintaan",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
             ),
-          ),
-          const SizedBox(height: 10),
-          Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              color: Colors.white,
-            ),
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text("Peralatan",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text("jumlah peralatan", style: TextStyle(fontSize: 12)),
-                    ],
+            const SizedBox(height: 10),
+            Container(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.white,
+              ),
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text("Permintaan",
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold)),
+                        Text("Jumlah Permintaan",
+                            style: TextStyle(fontSize: 12)),
+                      ],
+                    ),
                   ),
-                ),
-                BlocBuilder<PeralatanBloc, PeralatanState>(
-                  builder: (context, state) {
-                    return state.maybeWhen(
-                      loaded: (peralatan, failureOrSuccees) => Container(
+                  BlocBuilder<PermintaanBloc, PermintaanState>(
+                    builder: (context, state) {
+                      return Container(
                         padding: const EdgeInsets.all(10),
                         decoration: const BoxDecoration(
-                          color: ColorPalette.generalSoftRed,
+                          color: ColorPalette.generalSoftGreen,
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
                         child: Column(
                           children: [
                             Text(
-                              peralatan.length.toString(),
+                              state.listPermintaan.length.toString() ?? "0",
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
-                                color: ColorPalette.generalRed,
-                              ),
-                            ),
-                            const Text(
-                              "Item",
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: ColorPalette.generalRed,
+                                color: ColorPalette.generalIndigo,
                               ),
                             ),
                           ],
                         ),
-                      ),
-                      orElse: () => const CircularProgressIndicator(),
-                    );
-                  },
-                )
-              ],
+                      );
+                    },
+                  )
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 10),
-          Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              color: Colors.white,
-            ),
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text("Logistik",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text("Jumlah Logistik", style: TextStyle(fontSize: 12)),
-                    ],
-                  ),
-                ),
-                BlocBuilder<LogistikBloc, LogistikState>(
-                  builder: (context, state) {
-                    return state.maybeWhen(
-                        loaded: (logistik, failureOrSuccess) => Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: const BoxDecoration(
-                                color: ColorPalette.generalSoftGreen,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                              ),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    logistik.length.toString(),
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                      color: ColorPalette.generalIndigo,
-                                    ),
-                                  ),
-                                  const Text(
-                                    "Item",
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: ColorPalette.generalIndigo,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                        orElse: () => const CircularProgressIndicator());
-                  },
-                )
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

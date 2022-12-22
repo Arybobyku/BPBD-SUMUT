@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class ButtonRounded extends StatelessWidget {
   final String text;
+  final List<bool> disable;
   final VoidCallback? onPressed;
   final bool invert;
-  final bool disabled;
   final Icon? icon;
 
   const ButtonRounded({
@@ -13,7 +13,7 @@ class ButtonRounded extends StatelessWidget {
     this.onPressed,
     required this.text,
     this.invert = false,
-    this.disabled = false,
+    required this.disable,
     this.icon
   }) : super(key: key);
 
@@ -24,14 +24,14 @@ class ButtonRounded extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 15.0),
       padding: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
-          color: invert
+          color:disable.contains(true)?ColorPalette.generalGrey: invert
               ? ColorPalette.generalPrimaryColor
               : ColorPalette.generalSecondaryColor,
           borderRadius: BorderRadius.circular(15)),
       child: Padding(
         padding: const EdgeInsets.all(0),
         child: TextButton(
-          onPressed: onPressed,
+          onPressed: disable.contains(true)?null: onPressed,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,

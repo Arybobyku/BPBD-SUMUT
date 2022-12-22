@@ -59,6 +59,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ButtonRounded(
+                  disable: [false],
                   text: "Get Started",
                   onPressed: () {
                     Get.offAllNamed(Routes.landing);

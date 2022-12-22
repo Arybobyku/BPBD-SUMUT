@@ -1,4 +1,5 @@
 import 'package:bpbd/helper/color_pallete.dart';
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 
 class DropdownContainer extends StatelessWidget {
@@ -39,6 +40,40 @@ class DropdownContainer extends StatelessWidget {
           );
         }).toList(),
         onChanged: onChanged,
+      ),
+    );
+  }
+}
+
+class LoadingDropdownContainer extends StatelessWidget {
+  const LoadingDropdownContainer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 65.0,
+      margin: const EdgeInsets.only(bottom: 15.0, top: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: ColorPalette.generalGrey),
+          borderRadius: const BorderRadius.all(Radius.circular(15))),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        children: const [
+          Expanded(
+            child: Text(
+              'Loading...',
+              style: TextStyle(fontSize: 16, color: Colors.grey),
+            ),
+          ),
+          Icon(
+            Icons.arrow_drop_down,
+            color: Colors.grey,
+          )
+        ],
       ),
     );
   }

@@ -127,6 +127,44 @@ class _$ApiAccessor extends ApiAccessor {
   }
 
   @override
+  Future<Response<dynamic>> getPermintaan(dynamic query) {
+    final $url = '/api/permintaan';
+    final $params = <String, dynamic>{'id_user': query};
+    final $headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    final $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+      headers: $headers,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> submitPermintaan(String body) {
+    final $url = '/api/permintaan';
+    final $headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    final $body = body;
+    final $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+      headers: $headers,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
   Future<Response<dynamic>> getAllLogistiks(dynamic query) {
     final $url = '/api/logistiks';
     final $params = <String, dynamic>{'id_kota': query};
@@ -148,6 +186,23 @@ class _$ApiAccessor extends ApiAccessor {
   @override
   Future<Response<dynamic>> getAllBanner() {
     final $url = '/api/banner';
+    final $headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    final $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      headers: $headers,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> getAllKota() {
+    final $url = '/api/kota';
     final $headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',

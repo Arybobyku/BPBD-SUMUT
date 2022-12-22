@@ -53,6 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: ButtonRounded(
+                      disable: [false],
                       text: "logout",
                       invert: true,
                       onPressed: () {
