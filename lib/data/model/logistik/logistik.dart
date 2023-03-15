@@ -11,7 +11,7 @@ class Logistik with _$Logistik {
   const factory Logistik({
     @JsonKey(name: "id") required int id,
     @JsonKey(name: "nama_logistik") required String nama,
-    @JsonKey(name: "jumlah_logistik") required String jumlah,
+    @JsonKey(name: "jumlah_logistik") required int jumlah,
     @JsonKey(name: "foto_logistik") required String foto,
     @JsonKey(name: "kategori_logistik") required String kategori,
     @JsonKey(name: "tahun_logistik") required String tahun,

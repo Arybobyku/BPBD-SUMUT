@@ -9,7 +9,7 @@ part of 'peralatan.dart';
 _$_Peralatan _$$_PeralatanFromJson(Map<String, dynamic> json) => _$_Peralatan(
       id: json['id'] as int,
       nama: json['nama'] as String,
-      jumlah: json['jumlah'] as String,
+      jumlah: json['jumlah'] as int,
       foto: json['foto'] as String,
       kategori: json['kategori'] as String,
       tahun: json['tahun'] as String,

@@ -25,7 +25,7 @@ class _$PeralatanTearOff {
   _Peralatan call(
       {@JsonKey(name: "id") required int id,
       @JsonKey(name: "nama") required String nama,
-      @JsonKey(name: "jumlah") required String jumlah,
+      @JsonKey(name: "jumlah") required int jumlah,
       @JsonKey(name: "foto") required String foto,
       @JsonKey(name: "kategori") required String kategori,
       @JsonKey(name: "tahun") required String tahun,
@@ -56,7 +56,7 @@ mixin _$Peralatan {
   @JsonKey(name: "nama")
   String get nama => throw _privateConstructorUsedError;
   @JsonKey(name: "jumlah")
-  String get jumlah => throw _privateConstructorUsedError;
+  int get jumlah => throw _privateConstructorUsedError;
   @JsonKey(name: "foto")
   String get foto => throw _privateConstructorUsedError;
   @JsonKey(name: "kategori")
@@ -79,7 +79,7 @@ abstract class $PeralatanCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "id") int id,
       @JsonKey(name: "nama") String nama,
-      @JsonKey(name: "jumlah") String jumlah,
+      @JsonKey(name: "jumlah") int jumlah,
       @JsonKey(name: "foto") String foto,
       @JsonKey(name: "kategori") String kategori,
       @JsonKey(name: "tahun") String tahun,
@@ -116,7 +116,7 @@ class _$PeralatanCopyWithImpl<$Res> implements $PeralatanCopyWith<$Res> {
       jumlah: jumlah == freezed
           ? _value.jumlah
           : jumlah // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       foto: foto == freezed
           ? _value.foto
           : foto // ignore: cast_nullable_to_non_nullable
@@ -146,7 +146,7 @@ abstract class _$PeralatanCopyWith<$Res> implements $PeralatanCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "id") int id,
       @JsonKey(name: "nama") String nama,
-      @JsonKey(name: "jumlah") String jumlah,
+      @JsonKey(name: "jumlah") int jumlah,
       @JsonKey(name: "foto") String foto,
       @JsonKey(name: "kategori") String kategori,
       @JsonKey(name: "tahun") String tahun,
@@ -184,7 +184,7 @@ class __$PeralatanCopyWithImpl<$Res> extends _$PeralatanCopyWithImpl<$Res>
       jumlah: jumlah == freezed
           ? _value.jumlah
           : jumlah // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       foto: foto == freezed
           ? _value.foto
           : foto // ignore: cast_nullable_to_non_nullable
@@ -228,7 +228,7 @@ class _$_Peralatan implements _Peralatan {
   final String nama;
   @override
   @JsonKey(name: "jumlah")
-  final String jumlah;
+  final int jumlah;
   @override
   @JsonKey(name: "foto")
   final String foto;
@@ -288,7 +288,7 @@ abstract class _Peralatan implements Peralatan {
   const factory _Peralatan(
       {@JsonKey(name: "id") required int id,
       @JsonKey(name: "nama") required String nama,
-      @JsonKey(name: "jumlah") required String jumlah,
+      @JsonKey(name: "jumlah") required int jumlah,
       @JsonKey(name: "foto") required String foto,
       @JsonKey(name: "kategori") required String kategori,
       @JsonKey(name: "tahun") required String tahun,
@@ -305,7 +305,7 @@ abstract class _Peralatan implements Peralatan {
   String get nama;
   @override
   @JsonKey(name: "jumlah")
-  String get jumlah;
+  int get jumlah;
   @override
   @JsonKey(name: "foto")
   String get foto;

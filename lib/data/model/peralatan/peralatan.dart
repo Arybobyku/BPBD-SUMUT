@@ -11,7 +11,7 @@ class Peralatan with _$Peralatan {
   const factory Peralatan({
     @JsonKey(name: "id") required int id,
     @JsonKey(name: "nama") required String nama,
-    @JsonKey(name: "jumlah") required String jumlah,
+    @JsonKey(name: "jumlah") required int jumlah,
     @JsonKey(name: "foto") required String foto,
     @JsonKey(name: "kategori") required String kategori,
     @JsonKey(name: "tahun") required String tahun,

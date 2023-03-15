@@ -32,7 +32,7 @@ class _NavigatorPageState extends State<NavigatorPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              "images/logo.png",
+              "images/logo1.png",
               height: 200,
               width: 200,
             )

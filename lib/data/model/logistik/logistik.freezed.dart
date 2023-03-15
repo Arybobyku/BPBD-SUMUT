@@ -25,7 +25,7 @@ class _$LogistikTearOff {
   _Logistik call(
       {@JsonKey(name: "id") required int id,
       @JsonKey(name: "nama_logistik") required String nama,
-      @JsonKey(name: "jumlah_logistik") required String jumlah,
+      @JsonKey(name: "jumlah_logistik") required int jumlah,
       @JsonKey(name: "foto_logistik") required String foto,
       @JsonKey(name: "kategori_logistik") required String kategori,
       @JsonKey(name: "tahun_logistik") required String tahun,
@@ -56,7 +56,7 @@ mixin _$Logistik {
   @JsonKey(name: "nama_logistik")
   String get nama => throw _privateConstructorUsedError;
   @JsonKey(name: "jumlah_logistik")
-  String get jumlah => throw _privateConstructorUsedError;
+  int get jumlah => throw _privateConstructorUsedError;
   @JsonKey(name: "foto_logistik")
   String get foto => throw _privateConstructorUsedError;
   @JsonKey(name: "kategori_logistik")
@@ -79,7 +79,7 @@ abstract class $LogistikCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "id") int id,
       @JsonKey(name: "nama_logistik") String nama,
-      @JsonKey(name: "jumlah_logistik") String jumlah,
+      @JsonKey(name: "jumlah_logistik") int jumlah,
       @JsonKey(name: "foto_logistik") String foto,
       @JsonKey(name: "kategori_logistik") String kategori,
       @JsonKey(name: "tahun_logistik") String tahun,
@@ -116,7 +116,7 @@ class _$LogistikCopyWithImpl<$Res> implements $LogistikCopyWith<$Res> {
       jumlah: jumlah == freezed
           ? _value.jumlah
           : jumlah // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       foto: foto == freezed
           ? _value.foto
           : foto // ignore: cast_nullable_to_non_nullable
@@ -145,7 +145,7 @@ abstract class _$LogistikCopyWith<$Res> implements $LogistikCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "id") int id,
       @JsonKey(name: "nama_logistik") String nama,
-      @JsonKey(name: "jumlah_logistik") String jumlah,
+      @JsonKey(name: "jumlah_logistik") int jumlah,
       @JsonKey(name: "foto_logistik") String foto,
       @JsonKey(name: "kategori_logistik") String kategori,
       @JsonKey(name: "tahun_logistik") String tahun,
@@ -183,7 +183,7 @@ class __$LogistikCopyWithImpl<$Res> extends _$LogistikCopyWithImpl<$Res>
       jumlah: jumlah == freezed
           ? _value.jumlah
           : jumlah // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       foto: foto == freezed
           ? _value.foto
           : foto // ignore: cast_nullable_to_non_nullable
@@ -227,7 +227,7 @@ class _$_Logistik implements _Logistik {
   final String nama;
   @override
   @JsonKey(name: "jumlah_logistik")
-  final String jumlah;
+  final int jumlah;
   @override
   @JsonKey(name: "foto_logistik")
   final String foto;
@@ -287,7 +287,7 @@ abstract class _Logistik implements Logistik {
   const factory _Logistik(
           {@JsonKey(name: "id") required int id,
           @JsonKey(name: "nama_logistik") required String nama,
-          @JsonKey(name: "jumlah_logistik") required String jumlah,
+          @JsonKey(name: "jumlah_logistik") required int jumlah,
           @JsonKey(name: "foto_logistik") required String foto,
           @JsonKey(name: "kategori_logistik") required String kategori,
           @JsonKey(name: "tahun_logistik") required String tahun,
@@ -304,7 +304,7 @@ abstract class _Logistik implements Logistik {
   String get nama;
   @override
   @JsonKey(name: "jumlah_logistik")
-  String get jumlah;
+  int get jumlah;
   @override
   @JsonKey(name: "foto_logistik")
   String get foto;

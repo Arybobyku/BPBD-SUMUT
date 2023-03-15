@@ -9,7 +9,7 @@ part of 'logistik.dart';
 _$_Logistik _$$_LogistikFromJson(Map<String, dynamic> json) => _$_Logistik(
       id: json['id'] as int,
       nama: json['nama_logistik'] as String,
-      jumlah: json['jumlah_logistik'] as String,
+      jumlah: json['jumlah_logistik'] as int,
       foto: json['foto_logistik'] as String,
       kategori: json['kategori_logistik'] as String,
       tahun: json['tahun_logistik'] as String,
